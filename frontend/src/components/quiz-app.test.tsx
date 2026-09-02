@@ -55,6 +55,22 @@ describe("QuizApp", () => {
     expect(screen.getByRole("dialog", { name: /add to the stack/i })).toBeInTheDocument();
   });
 
+  it("closes the add-question dialog without validating or submitting partial input", async () => {
+    const user = userEvent.setup();
+    render(<QuizApp />);
+    await user.click(screen.getByRole("button", { name: /^add question$/i }));
+    await user.type(screen.getByRole("textbox", { name: /question/i }), "Partial question");
+
+    await user.click(screen.getByRole("button", { name: /close add question/i }));
+
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(fetch).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole("button", { name: /^add question$/i }));
+    expect(screen.getByRole("textbox", { name: /question/i })).toHaveValue("");
+    expect(screen.queryByText("Enter an alternative.")).not.toBeInTheDocument();
+  });
+
   it("shows loading, reports API errors, and retries", async () => {
     let resolveFirst: ((value: Response) => void) | undefined;
     const pending = new Promise<Response>((resolve) => { resolveFirst = resolve; });
