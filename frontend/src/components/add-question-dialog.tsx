@@ -68,7 +68,7 @@ export function AddQuestionDialog({ open, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 grid overflow-y-auto bg-[#10120f]/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && close()}>
       <section className="soft-shadow relative m-auto w-full max-w-2xl border-2 border-[#10120f] bg-[#f8f6ef] p-6 sm:p-9" role="dialog" aria-modal="true" aria-labelledby="add-title">
-        <button className="absolute right-4 top-4 grid size-10 place-items-center border-2 border-[#10120f] bg-white text-xl hover:bg-[#d8ff62]" onClick={close} aria-label="Close add question">×</button>
+        <button type="button" className="absolute right-4 top-4 grid size-10 place-items-center border-2 border-[#10120f] bg-white text-xl hover:bg-[#d8ff62]" onMouseDown={(event) => event.preventDefault()} onClick={close} aria-label="Close add question">×</button>
         {status === "saved" ? (
           <div className="enter py-12 text-center" role="status">
             <div className="font-mono mx-auto mb-6 grid size-16 place-items-center rounded-full border-2 border-[#10120f] bg-[#d8ff62] text-2xl">✓</div>
