@@ -11,10 +11,10 @@ type Props = { open: boolean; onClose: () => void };
 export function AddQuestionDialog({ open, onClose }: Props) {
   const [draft, setDraft] = useState<QuestionDraft>(emptyDraft);
   const [errors, setErrors] = useState<DraftErrors>({});
+  const [validationStarted, setValidationStarted] = useState(false);
   const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
   const [serverError, setServerError] = useState("");
   const questionRef = useRef<HTMLTextAreaElement>(null);
-  const canSubmit = Object.keys(validateDraft(draft)).length === 0;
 
   useEffect(() => {
     if (!open) return;
@@ -31,14 +31,21 @@ export function AddQuestionDialog({ open, onClose }: Props) {
   function close() {
     setDraft(emptyDraft);
     setErrors({});
+    setValidationStarted(false);
     setServerError("");
     setStatus("idle");
     onClose();
   }
 
+  function updateDraft(nextDraft: QuestionDraft) {
+    setDraft(nextDraft);
+    if (validationStarted) setErrors(validateDraft(nextDraft));
+  }
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validateDraft(draft);
+    setValidationStarted(true);
     setErrors(nextErrors);
     setServerError("");
     if (Object.keys(nextErrors).length > 0) {
@@ -77,13 +84,13 @@ export function AddQuestionDialog({ open, onClose }: Props) {
             <button className="mt-8 border-2 border-[#10120f] bg-[#10120f] px-6 py-3 font-bold text-white hover:bg-[#7657ff]" onClick={close}>Back to home</button>
           </div>
         ) : (
-          <form onSubmit={submit} onBlur={() => setErrors(validateDraft(draft))} noValidate>
+          <form onSubmit={submit} noValidate>
             <p className="font-mono text-xs font-bold uppercase tracking-[.2em] text-[#7657ff]">POST /questions</p>
             <h2 id="add-title" className="mt-2 text-3xl font-black tracking-tight">Add to the stack</h2>
             <p className="mt-2 text-sm text-[#5e6158]">Write one clear question, four unique alternatives, and mark the correct one.</p>
 
             <label className="mt-7 block font-bold" htmlFor="question">Question <span aria-hidden="true" className="font-mono float-right text-xs font-normal text-[#686b63]">{draft.question.length}/500</span></label>
-            <textarea ref={questionRef} id="question" rows={3} maxLength={500} value={draft.question} aria-invalid={Boolean(errors.question)} aria-describedby={errors.question ? "question-error" : undefined} onChange={(event) => setDraft({ ...draft, question: event.target.value })} className="mt-2 w-full resize-y border-2 border-[#10120f] bg-white p-3" placeholder="What does HTTP status 204 mean?" />
+            <textarea ref={questionRef} id="question" rows={3} maxLength={500} value={draft.question} aria-invalid={Boolean(errors.question)} aria-describedby={errors.question ? "question-error" : undefined} onChange={(event) => updateDraft({ ...draft, question: event.target.value })} className="mt-2 w-full resize-y border-2 border-[#10120f] bg-white p-3" placeholder="What does HTTP status 204 mean?" />
             {errors.question && <p id="question-error" className="mt-1 text-sm font-bold text-[#b22e1a]">{errors.question}</p>}
 
             <fieldset className="mt-6">
@@ -95,12 +102,12 @@ export function AddQuestionDialog({ open, onClose }: Props) {
                   return (
                     <div key={index}>
                       <div className="flex items-center gap-3">
-                        <input type="radio" name="correct" checked={draft.correctAlternativeIndex === index} onChange={() => setDraft({ ...draft, correctAlternativeIndex: index })} aria-label={`Mark alternative ${index + 1} correct`} className="size-5 accent-[#7657ff]" />
+                        <input type="radio" name="correct" checked={draft.correctAlternativeIndex === index} onChange={() => updateDraft({ ...draft, correctAlternativeIndex: index })} aria-label={`Mark alternative ${index + 1} correct`} className="size-5 accent-[#7657ff]" />
                         <label className="sr-only" htmlFor={`alternative-${index}`}>Alternative {index + 1}</label>
                         <input id={`alternative-${index}`} maxLength={200} value={alternative} aria-invalid={Boolean(errors[field])} onChange={(event) => {
                           const alternatives = [...draft.alternatives] as [string, string, string, string];
                           alternatives[index] = event.target.value;
-                          setDraft({ ...draft, alternatives });
+                          updateDraft({ ...draft, alternatives });
                         }} className="min-w-0 flex-1 border-2 border-[#10120f] bg-white px-3 py-2.5" placeholder={`Alternative ${index + 1}`} />
                       </div>
                       {errors[field] && <p className="ml-8 mt-1 text-sm font-bold text-[#b22e1a]">{errors[field]}</p>}
@@ -114,7 +121,7 @@ export function AddQuestionDialog({ open, onClose }: Props) {
             {serverError && <div className="mt-5 border-2 border-[#b22e1a] bg-[#ffd3cb] p-3 text-sm font-bold" role="alert">{serverError}</div>}
             <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
               <button type="button" onClick={close} className="border-2 border-[#10120f] bg-white px-5 py-3 font-bold hover:bg-[#e6e3da]">Cancel</button>
-              <button disabled={status === "saving" || !canSubmit} className="border-2 border-[#10120f] bg-[#d8ff62] px-6 py-3 font-black hover:bg-white disabled:opacity-60">{status === "saving" ? "Committing…" : "Commit question →"}</button>
+              <button type="submit" disabled={status === "saving"} className="border-2 border-[#10120f] bg-[#d8ff62] px-6 py-3 font-black hover:bg-white disabled:opacity-60">{status === "saving" ? "Committing…" : "Commit question →"}</button>
             </div>
           </form>
         )}
