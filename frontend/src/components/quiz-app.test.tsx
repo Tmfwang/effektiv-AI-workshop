@@ -162,25 +162,35 @@ describe("QuizApp", () => {
     render(<QuizApp />);
     await user.click(screen.getByRole("button", { name: /^add question$/i }));
     const dialog = screen.getByRole("dialog");
-    expect(within(dialog).getByRole("button", { name: /commit question/i })).toBeDisabled();
-    await user.click(screen.getByRole("textbox", { name: /question/i }));
-    await user.tab();
-    expect(screen.getByText("Enter a question.")).toBeInTheDocument();
+    const questionInput = screen.getByRole("textbox", { name: /question/i });
+    const commitButton = within(dialog).getByRole("button", { name: /commit question/i });
+    expect(commitButton).toBeEnabled();
+    await user.type(questionInput, "  HTTP?  ");
+    await user.click(screen.getByLabelText("Alternative 1"));
+    expect(screen.queryByText("Enter an alternative.")).not.toBeInTheDocument();
+
+    await user.click(commitButton);
     expect(screen.getAllByText("Enter an alternative.")).toHaveLength(4);
     expect(screen.getByText("Choose the correct answer.")).toBeInTheDocument();
+    expect(screen.queryByText("Enter a question.")).not.toBeInTheDocument();
 
-    await user.type(screen.getByRole("textbox", { name: /question/i }), "  HTTP?  ");
+    await user.clear(questionInput);
+    expect(screen.getByText("Enter a question.")).toBeInTheDocument();
+    await user.type(questionInput, "  HTTP?  ");
+    expect(screen.queryByText("Enter a question.")).not.toBeInTheDocument();
+
     const inputs = [1, 2, 3, 4].map((number) => screen.getByLabelText(`Alternative ${number}`));
     for (const input of inputs) await user.type(input, "Same");
-    await user.click(screen.getByLabelText("Mark alternative 2 correct"));
-    await user.click(within(dialog).getByRole("button", { name: /commit question/i }));
     expect(screen.getByText("Alternatives must be unique.")).toBeInTheDocument();
+    await user.click(screen.getByLabelText("Mark alternative 2 correct"));
+    expect(screen.queryByText("Choose the correct answer.")).not.toBeInTheDocument();
 
     for (let index = 0; index < inputs.length; index += 1) {
       await user.clear(inputs[index]!);
       await user.type(inputs[index]!, ` ${String.fromCharCode(65 + index)} `);
     }
-    await user.click(within(dialog).getByRole("button", { name: /commit question/i }));
+    expect(screen.queryByText("Alternatives must be unique.")).not.toBeInTheDocument();
+    await user.click(commitButton);
     expect(await screen.findByText("Question committed.")).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledWith("/api/questions", expect.objectContaining({
       method: "POST",
