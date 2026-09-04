@@ -23,11 +23,7 @@ No global Gradle, Java 21, Node.js, or pnpm installation is required. Gradle dow
 
 Run commands from the repository root unless a step says otherwise.
 
-1. Create the local environment file. Its credentials are intentionally local-only.
-
-   ```bash
-   cp .env.example .env
-   ```
+1. Create the repository-root `.env` file with the local database and Ktor settings. Its credentials are intentionally local-only. The Ktor `run` task and Next.js load this file automatically.
 
 2. Start SQL Server only.
 
@@ -51,7 +47,6 @@ Run commands from the repository root unless a step says otherwise.
 
    ```bash
    cd backend
-   set -a; source ../.env; set +a
    ./gradlew run
    ```
 
@@ -66,7 +61,6 @@ Run commands from the repository root unless a step says otherwise.
 6. Start Next.js on the host. `KTOR_BASE_URL` is read only by server-side Route Handlers and is never exposed as a `NEXT_PUBLIC_*` variable.
 
    ```bash
-   set -a; source ../.env; set +a
    volta run pnpm dev
    ```
 
@@ -131,5 +125,5 @@ backend/                 Ktor application, migration, and tests
 frontend/                Next.js application, BFF, generated client, and tests
 openapi/quiz-api.yaml    Handwritten source-of-truth API contract
 docker-compose.yml       SQL Server only
-.env.example             Local defaults shared by host processes and Compose
+.env                     Local settings shared by host processes and Compose
 ```
