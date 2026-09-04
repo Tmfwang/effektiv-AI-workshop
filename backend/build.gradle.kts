@@ -14,7 +14,7 @@ repositories {
 val ktorVersion = "3.5.2"
 val exposedVersion = "1.4.0"
 val flywayVersion = "13.4.0"
-val testcontainersVersion = "1.21.4"
+val sqliteVersion = "3.50.3.0"
 
 dependencies {
     implementation("io.ktor:ktor-server-core:$ktorVersion")
@@ -26,17 +26,14 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
-    implementation("org.flywaydb:flyway-sqlserver:$flywayVersion")
     implementation("com.zaxxer:HikariCP:7.0.2")
-    implementation("com.microsoft.sqlserver:mssql-jdbc:13.2.1.jre11")
+    implementation("org.xerial:sqlite-jdbc:$sqliteVersion")
     implementation("ch.qos.logback:logback-classic:1.5.18")
 
     testImplementation(kotlin("test"))
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
-    testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
-    testImplementation("org.testcontainers:mssqlserver:$testcontainersVersion")
 }
 
 kotlin {

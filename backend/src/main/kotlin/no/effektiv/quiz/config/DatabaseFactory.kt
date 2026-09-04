@@ -1,32 +1,23 @@
 package no.effektiv.quiz.config
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.v1.jdbc.Database
+import java.io.File
 
 data class DatabaseConfig(
-    val host: String,
-    val port: Int,
-    val username: String,
-    val password: String,
-    val database: String = DATABASE_NAME,
+    val path: String = DEFAULT_PATH,
 ) {
     init {
-        require(database == DATABASE_NAME) { "Only the fixed database name '$DATABASE_NAME' is supported" }
-        require(port in 1..65535) { "DB_PORT must be between 1 and 65535" }
+        require(path.isNotBlank()) { "DB_PATH must not be blank" }
     }
 
     companion object {
-        const val DATABASE_NAME = "quiz_app"
+        const val DEFAULT_PATH = "data/quiz.db"
 
         fun fromEnvironment(environment: Map<String, String> = System.getenv()) = DatabaseConfig(
-            host = environment["DB_HOST"] ?: "localhost",
-            port = environment["DB_PORT"]?.toIntOrNull() ?: 1433,
-            username = environment["DB_USER"] ?: "sa",
-            password = environment["DB_PASSWORD"] ?: "LocalQuiz_Passw0rd!",
-            database = environment["DB_NAME"] ?: DATABASE_NAME,
+            path = environment["DB_PATH"]?.takeIf { it.isNotBlank() } ?: DEFAULT_PATH,
         )
     }
 }
@@ -39,25 +30,17 @@ data class DatabaseResources(
 }
 
 object DatabaseFactory {
-    private const val CREATE_DATABASE_SQL =
-        "IF DB_ID(N'quiz_app') IS NULL CREATE DATABASE [quiz_app]"
-
     fun create(config: DatabaseConfig): DatabaseResources {
-        bootstrap(config)
+        File(config.path).absoluteFile.parentFile?.mkdirs()
 
         val hikari = HikariDataSource(HikariConfig().apply {
             poolName = "quiz-app-pool"
-            maximumPoolSize = 10
+            maximumPoolSize = 1
             minimumIdle = 1
             connectionTimeout = 10_000
-            dataSourceClassName = SQLServerDataSource::class.java.name
-            addDataSourceProperty("serverName", config.host)
-            addDataSourceProperty("portNumber", config.port)
-            addDataSourceProperty("databaseName", DatabaseConfig.DATABASE_NAME)
-            addDataSourceProperty("user", config.username)
-            addDataSourceProperty("password", config.password)
-            addDataSourceProperty("encrypt", true)
-            addDataSourceProperty("trustServerCertificate", true)
+            jdbcUrl = "jdbc:sqlite:${config.path}"
+            driverClassName = "org.sqlite.JDBC"
+            connectionInitSql = "PRAGMA foreign_keys = ON"
         })
 
         try {
@@ -71,22 +54,5 @@ object DatabaseFactory {
             hikari.close()
             throw exception
         }
-    }
-
-    fun bootstrap(config: DatabaseConfig) {
-        val master = sqlServerDataSource(config, "master")
-        master.connection.use { connection ->
-            connection.createStatement().use { statement -> statement.executeUpdate(CREATE_DATABASE_SQL) }
-        }
-    }
-
-    private fun sqlServerDataSource(config: DatabaseConfig, database: String) = SQLServerDataSource().apply {
-        setServerName(config.host)
-        setPortNumber(config.port)
-        setDatabaseName(database)
-        setUser(config.username)
-        setPassword(config.password)
-        setEncrypt("true")
-        setTrustServerCertificate(true)
     }
 }
