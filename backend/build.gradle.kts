@@ -47,6 +47,26 @@ application {
     mainClass.set("no.effektiv.quiz.ApplicationKt")
 }
 
+// Inject values from the repository-root .env when running Ktor locally.
+// Production deployments are expected to set these as real environment variables.
+tasks.getByName<JavaExec>("run") {
+    fun loadLocalEnvFile(filename: String) {
+        val file = File("${projectDir.canonicalPath}/../$filename")
+        if (file.exists()) {
+            file.forEachLine { line ->
+                val trimmed = line.trim()
+                if (trimmed.isEmpty() || trimmed.startsWith("#")) return@forEachLine
+                val parts = trimmed.split("=", limit = 2)
+                if (parts.size == 2) {
+                    environment(parts[0].trim(), parts[1].trim().trim('"', '\''))
+                }
+            }
+        }
+    }
+
+    loadLocalEnvFile(".env")
+}
+
 tasks.test {
     useJUnitPlatform()
     testLogging {

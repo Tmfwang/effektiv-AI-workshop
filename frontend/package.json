@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node --import ./scripts/load-root-env.mjs ./node_modules/next/dist/bin/next dev",
+    "build": "node --import ./scripts/load-root-env.mjs ./node_modules/next/dist/bin/next build",
+    "start": "node --import ./scripts/load-root-env.mjs ./node_modules/next/dist/bin/next start",
     "api:generate": "openapi-ts",
     "test": "vitest",
     "test:run": "vitest run",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@hey-api/client-fetch": "0.13.1",
+    "@next/env": "16.3.4",
     "canvas-confetti": "1.9.4",
     "next": "16.3.4",
     "react": "19.2.8",
