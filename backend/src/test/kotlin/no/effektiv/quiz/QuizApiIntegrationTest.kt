@@ -19,17 +19,13 @@ import no.effektiv.quiz.domain.ErrorResponse
 import no.effektiv.quiz.domain.Question
 import no.effektiv.quiz.domain.QuizResponse
 import no.effektiv.quiz.service.QuestionSelector
-import org.flywaydb.core.Flyway
 import org.junit.jupiter.api.Test
-import org.testcontainers.containers.MSSQLServerContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
-import org.testcontainers.utility.DockerImageName
+import java.nio.file.Files
+import java.nio.file.Path
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-@Testcontainers(disabledWithoutDocker = true)
 class QuizApiIntegrationTest {
     @Test
     fun `GET quiz returns the ten migrated Unicode seed questions`() = withFreshDatabase { resources ->
@@ -171,34 +167,16 @@ class QuizApiIntegrationTest {
     }
 
     private fun withFreshDatabase(test: (DatabaseResources) -> Unit) {
-        val resources = DatabaseFactory.create(databaseConfig())
-        Flyway.configure()
-            .dataSource(resources.dataSource)
-            .cleanDisabled(false)
-            .load()
-            .run {
-                clean()
-                migrate()
-            }
+        val databasePath = Files.createTempDirectory("quiz-test-").resolve("quiz.db")
+        val resources = DatabaseFactory.create(DatabaseConfig(databasePath.toString()))
         try {
             test(resources)
         } finally {
-            if (!resources.dataSource.isClosed) resources.close()
+            resources.close()
+            Files.deleteIfExists(databasePath.resolveSibling("${databasePath.fileName}-shm"))
+            Files.deleteIfExists(databasePath.resolveSibling("${databasePath.fileName}-wal"))
+            Files.deleteIfExists(databasePath)
+            Files.deleteIfExists(databasePath.parent)
         }
-    }
-
-    private fun databaseConfig() = DatabaseConfig(
-        host = sqlServer.host,
-        port = sqlServer.getMappedPort(1433),
-        username = sqlServer.username,
-        password = sqlServer.password,
-    )
-
-    companion object {
-        @Container
-        @JvmStatic
-        val sqlServer: MSSQLServerContainer<*> = MSSQLServerContainer(
-            DockerImageName.parse("mcr.microsoft.com/mssql/server:2022-CU21-ubuntu-22.04"),
-        ).acceptLicense()
     }
 }
