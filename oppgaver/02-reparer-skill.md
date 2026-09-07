@@ -32,7 +32,7 @@ Dette er grunnen til at skills kan redusere normal kontekst og kostnad. Gevinste
 
 ### 🧩 Oppgave 2B: Reparer beskrivelsen og innholdet
 
-Kliff Arnes `quiz-expert` skill er teknisk gyldig, men «Hjelp med opprettelse av nye quizspørsmål» forteller verken når den trengs eller hva
+Kliff Arnes `quiz-expert` skill er teknisk gyldig, men «hjelper med spørsmål» forteller verken når den trengs eller hva
 ekspertisen består av. OpenCode finner skillen, men agenten har nesten ikke noe grunnlag for å velge den.
 
 Reparer [`SKILL.md`](../.agents/skills/quiz-expert/SKILL.md) slik at skillen kan brukes når agenten skal **opprette quizspørsmål**. Skillen skal gi agenten nok prosjektkontekst til å finne ut hvordan opprettelsen skal gjennomføres på riktig måte. Forbedre skillen med:
