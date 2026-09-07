@@ -1,5 +1,7 @@
 # StackCheck local quiz
 
+> **Workshop:** Start med [`oppgaver/README.md`](oppgaver/README.md) for den norske workshopen om agentisk AI-oppsett i OpenCode.
+
 A local full-stack quiz application with a Next.js BFF, Ktor API, and a persistent SQLite database. The shared question bank starts with ten English questions and can be extended from the UI. Quiz sessions and results remain in browser memory only.
 
 ## Stack

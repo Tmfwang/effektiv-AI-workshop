@@ -1,0 +1,48 @@
+# 🧩 3. Lag en ny skill
+
+Skills egner seg for repeterbare arbeidsmåter som bare er relevante av og til. Hvis instruksen gjelder alt arbeid, hører den heller hjemme i `AGENTS.md`. Hvis arbeidet bør isoleres og få egne verktøy eller en egen modell, kan en subagent passe bedre.
+
+Kliff Arne stoppet etter den første skillen. Nå skal du lage en ny og se hvor presist bruksområdet må beskrives før agenten velger riktig.
+
+### 🧩 Oppgave 3A: Velg et avgrenset bruksområde
+
+Velg én arbeidsflyt:
+
+- `api-change`: planlegg kontrakt-først-endringer og regenerering
+- `frontend-checks`: velg riktige tester og sjekker etter en frontendendring
+- `database-change`: håndter Flyway-migreringer uten å endre gamle migreringer
+
+Opprett `.agents/skills/<navn>/SKILL.md` med gyldig frontmatter. Skriv en norsk `description` som sier både **hva** skillen kan og **når** den skal brukes.
+
+Det finnes ikke ett riktig valg av arbeidsflyt. Løsningsforslaget viser én mulig variant med `database-change`.
+
+## Presisjon påvirker kostnaden
+
+Ti skills med beskrivelser på 30 tokens bruker omtrent **300 tokens** i listen agenten må velge fra. Det er vanligvis billigere enn å laste ti skill-filer på 800 tokens hver, som ville brukt **8 000 tokens**. Men beskrivelser har også en indirekte kostnad: Hvis `api-change` og `quiz-expert` begge ser relevante ut, kan agenten laste begge, bruke flere verktøykall og få 1 600 tokens med delvis overlappende instrukser.
+
+Et godt navn og en presis beskrivelse handler derfor ikke bare om organisering. Det påvirker hvor mye kontekst som lastes, hvor mange modellsteg agenten bruker, og om instruksjonene motsier hverandre.
+
+### 🧩 Oppgave 3B: Skriv resten av skillen
+
+Fullfør skillen du opprettet under [`.agents/skills/`](../.agents/skills/). Den skal:
+
+1. Ha alle beskrivelser og instrukser på norsk.
+2. Være kortere enn 30 linjer.
+3. Peke til filer fremfor å lime inn innholdet deres.
+4. Fortelle agenten hva den **ikke** skal gjøre.
+
+[Se løsningsforslag for oppgave 3A og 3B](./fasit/03-lag-skill.md)
+
+<details>
+<summary>Hint</summary>
+
+Start beskrivelsen med konkrete ord brukeren sannsynligvis skriver, for eksempel «OpenAPI», «API-kontrakt» eller «generert klient». Bruk «Bruk BARE når ...» dersom skillen aktiveres for ofte.
+
+</details>
+
+### 🧩 Oppgave 3C: Prøv grensene
+
+1. Start OpenCode på nytt.
+2. Still ett spørsmål som bør aktivere skillen.
+3. Still ett nærliggende spørsmål som ikke bør aktivere den.
+4. Juster beskrivelsen dersom agenten velger feil.
