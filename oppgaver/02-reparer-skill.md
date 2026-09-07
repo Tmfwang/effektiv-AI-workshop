@@ -9,7 +9,7 @@ En skill kan ligge i `.agents/skills/<navn>/SKILL.md`. Denne strukturen støttes
 1. Be agenten liste tilgjengelige skills.
 2. Bekreft at `quiz-expert` blir oppdaget fra [`.agents/skills/quiz-expert/SKILL.md`](../.agents/skills/quiz-expert/SKILL.md).
    3. Skillen er aktivert dersom du ser `→ Skill "quiz-expert"` i terminalen
-3. Tøm kontekstvinduet med `/new`, og be agenten `analyser kort flyten for å opprette et spørsmål`. Legg merke til om skillen aktiveres, og hvor stor konteksten blir til slutt som følge av denne ene oppgaven som agenten utførte med skillen.
+3. Tøm kontekstvinduet med `/new`, og be agenten `Opprett et nytt quizspørsmål om Narvik`. Legg merke til om skillen aktiveres, og hvor stor konteksten blir til slutt som følge av denne ene oppgaven som agenten utførte med skillen.
 4. Ta en titt på hvordan skillen [quiz-expert](../.agents/skills/quiz-expert/SKILL.md) er bygd opp; legg merke til formatet på både `name` og `description`, og den generelle instruksjonen som skillen består av.
 
 ## Skills og kontekstkostnad
@@ -32,16 +32,14 @@ Dette er grunnen til at skills kan redusere normal kontekst og kostnad. Gevinste
 
 ### 🧩 Oppgave 2B: Reparer beskrivelsen og innholdet
 
-Kliff Arnes `quiz-expert` skill er teknisk gyldig, men «hjelper med quiz-ting» forteller verken når den trengs eller hva
+Kliff Arnes `quiz-expert` skill er teknisk gyldig, men «hjelper med spørsmål» forteller verken når den trengs eller hva
 ekspertisen består av. OpenCode finner skillen, men agenten har nesten ikke noe grunnlag for å velge den.
 
-Gjør skillen til en ekspert på å **spore og forklare eksisterende quizflyt**, ikke på å implementere endringer. Forbedre [`SKILL.md`](../.agents/skills/quiz-expert/SKILL.md) med:
+Reparer [`SKILL.md`](../.agents/skills/quiz-expert/SKILL.md) slik at skillen kan brukes når agenten skal **opprette quizspørsmål**. Skillen skal gi agenten nok prosjektkontekst til å finne ut hvordan opprettelsen skal gjennomføres på riktig måte. Forbedre skillen med:
 
-- en konkret beskrivelse av **hva** og **når**
-- prosjektets viktigste sannhetskilder
-- rekkefølgen quizdata flyter gjennom systemet
-- relevante verifiseringskommandoer
-- én tydelig avgrensning
+- en konkret beskrivelse av **hva** skillen skal hjelpe med og **når** den skal brukes
+- relevante filer og valideringsregler for opprettelse av spørsmål
+- relevante kommandoer for å verifisere at opprettelsen fungerer
 
 > [!TIP]
 > Du kan få et forslag fra agenten på hvordan denne skillen bør forbedres. Hvorfor ikke prøve ut OpenCode sin `Plan`-modus (ved å trykke på Tab-tasten inne i sesjonen) i samme slengen?
@@ -51,6 +49,6 @@ Gjør skillen til en ekspert på å **spore og forklare eksisterende quizflyt**,
 ### 🧩 Oppgave 2C: Test aktiveringen på nytt
 
 1. Start OpenCode på nytt.
-2. Gjenta analysen fra oppgave 2A.
+2. Be agenten om å opprette et quizspørsmål, og gjenta analysen fra oppgave 2A for å se om skillen aktiveres.
 3. Sammenlign om og hvordan skillen ble brukt før og etter endringen.
    4. Merket du noen endring i hvor mye kontekst agenten brukte?
