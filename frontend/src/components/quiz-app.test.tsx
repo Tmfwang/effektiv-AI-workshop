@@ -87,7 +87,7 @@ describe("QuizApp", () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
-  it("locks the first answer, celebrates correctness, and auto-advances with progress", async () => {
+  it("locks the first answer, celebrates correctness, and waits for Next", async () => {
     vi.mocked(fetch).mockResolvedValue(response({ questions }));
     const user = userEvent.setup();
     render(<QuizApp />);
@@ -102,6 +102,8 @@ describe("QuizApp", () => {
     fireEvent.click(screen.getByRole("button", { name: /wrong 1/i }));
     expect(confetti).toHaveBeenCalledOnce();
     act(() => vi.advanceTimersByTime(1250));
+    expect(screen.getByRole("heading", { name: "Question 1?" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /next/i }));
     expect(screen.getByRole("heading", { name: "Question 2?" })).toBeInTheDocument();
     expect(screen.getByText("Question 2 / 10")).toBeInTheDocument();
   });
@@ -118,7 +120,7 @@ describe("QuizApp", () => {
     expect(confetti).not.toHaveBeenCalled();
   });
 
-  it("respects reduced motion by disabling confetti and auto-advance", async () => {
+  it("respects reduced motion by disabling confetti", async () => {
     setReducedMotion(true);
     vi.mocked(fetch).mockResolvedValue(response({ questions }));
     const user = userEvent.setup();
@@ -131,6 +133,8 @@ describe("QuizApp", () => {
     expect(screen.getByRole("heading", { name: "Question 1?" })).toBeInTheDocument();
     expect(confetti).not.toHaveBeenCalled();
     act(() => vi.advanceTimersByTime(500));
+    expect(screen.getByRole("heading", { name: "Question 1?" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /next/i }));
     expect(screen.getByRole("heading", { name: "Question 2?" })).toBeInTheDocument();
   });
 
