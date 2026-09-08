@@ -81,7 +81,7 @@ volta run pnpm api:generate
 
 Run commands from the repository root unless a step says otherwise.
 
-1. Create the repository-root `.env` file with the SQLite and Ktor settings. The Ktor `run` task and Next.js load this file automatically.
+1. Use the checked-in repository-root `.env` file for the SQLite and Ktor settings. Update it only if your local setup requires different values. The Ktor `run` task and Next.js load this file automatically.
 
 2. Start Ktor on the host in terminal one. Startup creates `backend/data/quiz.db` if absent, then Flyway migrates and seeds it before Exposed is used.
 
