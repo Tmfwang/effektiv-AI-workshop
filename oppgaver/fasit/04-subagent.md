@@ -15,7 +15,7 @@ permission:
   list: allow
   edit: deny
   bash: deny
-  webfetch: deny
+  webfetch: deny # Ikke la agenten hente innhold direkte fra nettet.
   task: deny
 ---
 

@@ -41,16 +41,50 @@ Diskuter forskjellen mellom et custom tool og å la agenten kjøre en fri shell-
 
 [Se løsningsforslag](../fasit/ekstra.md#c-custom-tool)
 
-## 🧩 D. Koble til et MCP-verktøy med minst mulig tillit
+## 🧩 D. Bygg en kvalitetsport med hooks
 
-MCP standardiserer hvordan en agent finner og kaller verktøy eller datakilder utenfor OpenCode. Det utvider kapasiteten, men også angrepsflaten, konteksten og kostnaden.
+En plugin utvider selve harnesset rundt modellen. Hooks reagerer deterministisk på hendelser eller verktøykall; de trenger ikke håpe at modellen husker en instruks. Lokale `.ts`- og `.js`-filer i `.opencode/plugins/` lastes automatisk ved oppstart.
 
-1. Velg en ufarlig MCP-server dere allerede bruker eller stoler på, for eksempel en dokumentasjons- eller nettleserserver.
-2. Legg den til i [`opencode.jsonc`](../../opencode.jsonc) etter den offisielle [MCP-dokumentasjonen](https://opencode.ai/docs/mcp-servers/).
-3. Begrens hvilke agenter som får kalle verktøyene med `permission`.
-4. Test ett eksplisitt kall og se hvilke nye verktøy agenten får presentert.
-5. Deaktiver serveren igjen med `enabled: false`.
+`tool.execute.after` kjører etter at et verktøy er ferdig. Hooken får blant annet verktøynavn og argumentene verktøyet ble kalt med. Dette er kraftig, men vær forsiktig: en hook kjøres ofte, bruker maskinen din, og en feil kan få selve verktøykallet til å feile.
 
-Ikke legg tokens direkte i filen. Bruk miljøvariabelreferanse dersom serveren krever autentisering. Ikke bruk en tilfeldig MCP-server bare for å fullføre oppgaven.
+Kliff Arne opprettet [`quality-gate.ts`](../../.opencode/plugins/quality-gate.ts). Foreløpig består kvalitetsporten av navnet og en kommentar, så den slipper gjennom absolutt alt.
 
-[Se refleksjonsforslag](../fasit/ekstra.md#d-mcp)
+### Del A: Se at hooken lever
+
+1. Implementer `tool.execute.after` i pluginen.
+2. Logg én kort melding når agenten har brukt `edit`, `write` eller `apply_patch`.
+3. Start OpenCode på nytt.
+4. Be agenten gjøre en ufarlig endring, for eksempel legge til og fjerne en kommentar i en testfil. Finn loggmeldingen i terminalen der OpenCode kjører.
+
+Bruk `console.log` i denne øvelsen fordi effekten er synlig. I en ekte plugin bør strukturert `client.app.log()` vurderes.
+
+### Del B: Kjør lint på endrede frontendfiler
+
+Utvid hooken slik at den kjører en kvalitetssjekk når en fil i `frontend/` er endret.
+
+Krav:
+
+- Kjør bare etter skriveverktøy.
+- Hent filstien fra `input.args`. Vær defensiv: `edit` og `write` kan bruke `filePath` eller `path`, mens `apply_patch` kan inneholde flere filstier i `patchText`.
+- Ignorer filer utenfor `frontend/`.
+- Start enkelt med `volta run pnpm eslint <relativ-fil>` fra `frontend/`.
+- Ikke kjør shell ved å bygge en ukontrollert kommandostreng. Bruk pluginens `$`-hjelper med interpolerte verdier.
+- Logg hvilken sjekk som kjøres.
+
+<details>
+<summary>Hint</summary>
+
+Pluginfunksjonen kan ta imot `{ $, worktree }`. Med Bun shell kan du angi arbeidsmappe og kjøre en kommando slik: ``await $`volta run pnpm eslint ${relativePath}`.cwd(frontendRoot)``. For en patch kan du hente filene fra linjer som starter med `*** Add File:` eller `*** Update File:`.
+
+</details>
+
+### Del C: Velg en produksjonsstrategi
+
+Diskuter med sidemannen:
+
+1. Bør hooken formatere automatisk eller bare rapportere feil?
+2. Bør den kjøre etter hvert edit, eller samlet ved `session.idle`?
+3. Hva skal skje dersom lint feiler?
+4. Når er en hook bedre enn en instruks i `AGENTS.md`?
+
+[Se løsningsforslag og refleksjon](../fasit/ekstra.md#d-hooks-og-kvalitetsport)

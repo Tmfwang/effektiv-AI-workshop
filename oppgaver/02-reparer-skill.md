@@ -38,7 +38,7 @@ ekspertisen består av. OpenCode finner skillen, men agenten har nesten ikke noe
 Reparer [`SKILL.md`](../.agents/skills/quiz-expert/SKILL.md) slik at skillen kan brukes når agenten skal **opprette quizspørsmål**. Skillen skal gi agenten nok prosjektkontekst til å finne ut hvordan opprettelsen skal gjennomføres på riktig måte. Forbedre skillen med:
 
 - en konkret beskrivelse av **hva** skillen skal hjelpe med og **når** den skal brukes
-- relevante filer og valideringsregler for opprettelse av spørsmål
+- relevante filer og valideringsregler for opprettelse av de initielle spørsmålene i appen
 - relevante kommandoer for å verifisere at opprettelsen fungerer
 
 > [!TIP]

@@ -10,7 +10,7 @@ Målet er ikke å skrive den perfekte prompten. Målet er å se hvordan små val
 2. Bruk en ny sesjon når en oppgave ber om det. Instruksjoner og plugins lastes ved oppstart, så start OpenCode på nytt etter at du endrer konfigurasjonsfiler.
 3. Jobb direkte i filene oppgaven lenker til.
 4. Test oppførselen ved å snakke med agenten, ikke bare ved å lese filene.
-5. Står du fast, åpne hintet. Alle oppgaver har også et løsningsforslag.
+5. Står du fast, åpne hintet. Alle oppgaver har også et løsningsforslag; ikke nøl ved å sjekke disse underveis.
 
 > Ikke legg hemmeligheter eller API-nøkler i repoet. Prosjektets `.env` er applikasjonskonfigurasjon og skal ikke brukes i oppgavene.
 
@@ -34,9 +34,9 @@ En felles mappe betyr ikke at alle harness tolker innhold, permissions eller akt
 | 10 min | 🧩 [2. Reparer quiz-eksperten](./02-reparer-skill.md) | Skills, kontekst ved behov |
 | 10 min | 🧩 [3. Lag en ny skill](./03-lag-skill.md) | Avgrensning og aktivering |
 | 10 min | 🧩 [4. Avgrens quiz-sheriffen](./04-subagent.md) | Subagent, orkestrering, permissions |
-| 15 min | 🧩 [5. Bygg kvalitetsporten](./05-hooks.md) | Plugins, hooks, scripting/tools |
+| 15 min | 🧩 [5. Gi agenten en nettleser](./05-chrome-mcp.md) | MCP, nettleserverktøy, tillit |
 
-Har dere bare 30 minutter, gjør oppgave 0, 1, 2 og første del av 5, og la fasilitatoren demonstrere subagenten. Jobb gjerne to og to: én styrer OpenCode, én observerer når agentens oppførsel endrer seg.
+Har dere bare 30 minutter, gjør oppgave 0, 1, 2 og første del av 5, og la fasilitatoren demonstrere subagenten og nettleserkallet. Jobb gjerne to og to: én styrer OpenCode, én observerer når agentens oppførsel endrer seg.
 
 ## Ekstra
 

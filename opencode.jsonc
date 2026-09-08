@@ -6,5 +6,18 @@
     "google",
     "github-copilot"
   ],
+  // Oppgave 5: fjern kommentarene for å aktivere Chrome DevTools MCP.
+  // "mcp": {
+  //   "chrome-devtools": {
+  //     "type": "local",
+  //     "command": [
+  //       "npx",
+  //       "-y",
+  //       "chrome-devtools-mcp@latest",
+  //       "--isolated=true"
+  //     ],
+  //     "enabled": true
+  //   }
+  // },
   "disabled_providers": []
 }

@@ -16,9 +16,66 @@ A local full-stack quiz application with a Next.js BFF, Ktor API, and a persiste
 
 ## Prerequisites
 
-- [Volta](https://volta.sh/)
+For the full workshop, including the Chrome DevTools MCP exercise, install or have access to:
 
-No global Gradle, Java 21, Node.js, or pnpm installation is required. Gradle downloads the Java 21 toolchain when necessary, while Volta installs and selects the frontend tools pinned in `frontend/package.json`.
+- [OpenCode](https://opencode.ai/)
+- [Volta](https://volta.sh/)
+- The current stable version of [Google Chrome](https://www.google.com/chrome/)
+- A model provider account, such as GitHub Copilot, OpenAI, Anthropic, or Google
+- This repository and a repository-root `.env` file supplied by the facilitator
+
+### macOS installation
+
+The following commands use Homebrew. Skip the Homebrew installation if it is already available:
+
+```bash
+# Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install OpenCode and Chrome
+brew install anomalyco/tap/opencode
+brew install --cask google-chrome
+
+# Install Volta, then start a new login shell
+curl https://get.volta.sh | bash
+exec zsh -l
+
+# Make Node and npx available from the repository root for the MCP server
+volta install node@22.22.2
+```
+
+Verify the installations:
+
+```bash
+opencode --version
+volta --version
+node --version
+npx --version
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version
+```
+
+The project pins Node.js `22.22.2` and pnpm `11.25.0` in `frontend/package.json`. You do not need to install pnpm globally; Volta selects the pinned version when commands are run from `frontend/`. Chrome DevTools MCP is also not installed globally; `npx` downloads it when OpenCode starts the configured server.
+
+If you do not want to use Homebrew for OpenCode, use the official installer instead:
+
+```bash
+curl -fsSL https://opencode.ai/install | bash
+```
+
+Java 21, Gradle, Docker, and a global pnpm installation are not required. The Gradle Wrapper and Volta handle the project tooling. Git is only needed to clone the repository; if Git is missing on macOS, install the Command Line Tools with `xcode-select --install`.
+
+## Before the workshop
+
+Authenticate OpenCode and install the project dependencies before the session:
+
+```bash
+opencode auth list
+opencode auth login # only if the required provider is missing
+
+cd /path/to/effektiv-AI-workshop/frontend
+volta run pnpm install --frozen-lockfile
+volta run pnpm api:generate
+```
 
 ## Run locally
 

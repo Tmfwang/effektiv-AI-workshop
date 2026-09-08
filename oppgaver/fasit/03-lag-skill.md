@@ -1,32 +1,32 @@
-# Løsningsforslag: ny skill
+# Løsningsforslag: skill for å kjøre appen
 
-Her er én mulig løsning for `database-change` i `.agents/skills/database-change/SKILL.md`:
+Her er én mulig løsning for `run-app` i `.agents/skills/run-app/SKILL.md`:
 
 ```markdown
 ---
-name: database-change
-description: Flyway-migrering, SQLite-skjema, tabell, kolonne, indeks eller seeddata. Bruk BARE når du skal planlegge eller implementere en varig databaseendring.
+name: run-app
+description: Start appen, kjør appen lokalt, eller åpne quizen. Bruk når backend og frontend skal startes for lokal utvikling.
 ---
 
-# Trygg databaseendring
+# Kjør appen lokalt
 
-1. Undersøk eksisterende filer under `backend/src/main/resources/db/migration/`.
-2. Legg til en ny versjonert migrering; skriv aldri om en anvendt migrering.
-3. Oppdater Exposed-repositoriet og domenemodellen bare der skjemaet krever det.
-4. Legg til en migrerings- eller repositorytest med en midlertidig SQLite-database.
-5. Kjør `./backend/gradlew -p backend test`.
+1. Les oppstartsseksjonen i `README.md` og sjekk at `.env` finnes i roten.
+2. Start Ktor fra `backend/` med `./gradlew run` i en egen prosess.
+3. Installer frontend-avhengigheter og generer API-klienten som beskrevet i `README.md` dersom det ikke allerede er gjort.
+4. Start Next.js fra `frontend/` med `volta run pnpm dev` i en egen prosess.
+5. Kontroller at quizen svarer på `http://localhost:3000`, og rapporter URL-ene og eventuelle oppstartsfeil.
 
-Endre aldri en eksisterende Flyway-migrering. Ikke slett den lokale databasen med mindre brukeren eksplisitt ber om å nullstille utviklingsdata.
+Ikke slett `backend/data/quiz.db`, endre kildekode eller start test- og produksjonsbygg med mindre brukeren ber om det. Ikke start en ny kopi av en tjeneste som allerede kjører.
 ```
 
 Mulige testmeldinger:
 
 ```text
-Legg til en difficulty-kolonne for spørsmål i databasen.
+Kjør appen lokalt så jeg kan prøve quizen.
 ```
 
 ```text
-Endre fargen på knappen for å starte quizen.
+Kjør backend-testene.
 ```
 
 Den første bør aktivere skillen. Den andre bør ikke gjøre det.
