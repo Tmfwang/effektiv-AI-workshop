@@ -1,7 +1,7 @@
 "use client";
 
 import confetti from "canvas-confetti";
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ErrorResponse, Question, QuizResponse } from "@/generated";
 import { AddQuestionDialog } from "./add-question-dialog";
 
@@ -27,12 +27,6 @@ export function QuizApp() {
   }, []);
 
   const current = questions[index];
-  const advanceAfterFeedback = useEffectEvent(advance);
-  useEffect(() => {
-    if (view !== "quiz" || selected === null) return;
-    const timer = window.setTimeout(advanceAfterFeedback, reducedMotion ? 500 : 1250);
-    return () => window.clearTimeout(timer);
-  }, [selected, reducedMotion, view]);
 
   async function startQuiz() {
     setView("loading");
