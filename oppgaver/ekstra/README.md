@@ -1,8 +1,33 @@
 # 🧩 Ekstraoppgaver
 
-Disse oppgavene er mer åpne. Velg det som virker interessant; de bygger ikke på hverandre. Oppgave B forutsetter likevel at du har laget `contract-reviewer` i oppgave 4.
+Disse oppgavene er mer åpne. Velg det som virker interessant; de bygger ikke på hverandre. Oppgave C forutsetter likevel at du har laget `contract-reviewer` i oppgave 4.
 
-## 🧩 A. Mål kontekst før du fyller den
+## 🧩 A. Prøvekjør skills og plugins fra fellesskapet
+
+Det finnes mange ferdige utvidelser for agent-harness. [Skills.sh](https://skills.sh/) samler skills som kan brukes av blant annet OpenCode, mens OpenCode har en [offisiell oversikt over plugins og andre integrasjoner](https://opencode.ai/docs/ecosystem/). Popularitet er ikke det samme som kvalitet eller sikkerhet: En skill tilfører instrukser til modellen, en plugin kjører kode i OpenCode-prosessen, og en lokal eller ekstern MCP-server gir agenten nye verktøy og datakilder.
+
+Velg minst **to skills** og **én plugin**. Aktuelle skills å prøve er:
+
+- [`grill-me`](https://skills.sh/mattpocock/skills/grill-me), som utfordrer en idé eller plan med oppfølgingsspørsmål
+- [`caveman`](https://skills.sh/juliusbrussee/caveman/caveman), som eksperimenterer med svært korte svar og lavere tokenbruk
+- [`frontend-design`](https://skills.sh/anthropics/skills/frontend-design), for mer gjennomarbeidede grensesnitt
+- [`systematic-debugging`](https://skills.sh/obra/superpowers/systematic-debugging), for strukturert feilsøking
+
+For plugins kan du for eksempel undersøke [`opencode-dynamic-context-pruning`](https://github.com/Tarquinen/opencode-dynamic-context-pruning), [`opencode-notificator`](https://github.com/panta82/opencode-notificator) eller [`opencode-md-table-formatter`](https://github.com/franlol/opencode-md-table-formatter). Utvalget og installasjonsmåtene kan endre seg, så bruk alltid prosjektets egen dokumentasjon.
+
+Prøv gjerne også [`CodeGraph`](https://github.com/colbymchenry/codegraph). Det er ikke en skill eller en vanlig OpenCode-plugin, men en lokal kodeindeks som kobles til OpenCode via MCP. Test om agenten bruker færre søk, fil-lesinger og verktøykall når den skal forklare en flyt eller finne konsekvensene av en kodeendring. Sammenlign også hvor mye kontekst som blir returnert i hvert kall.
+
+1. Kjør først en liten test uten utvidelser og noter agentens oppførsel, antall verktøykall og synlig tokenbruk. Bruk samme modell og oppgave i resten av forsøket.
+2. Les kildekoden og installasjonsinstruksene før du installerer noe. Se spesielt etter hooks, shell-kommandoer, nettverkstilgang, miljøvariabler og hvilke filer utvidelsen kan lese eller endre.
+3. Installer og test **én utvidelse om gangen**. Bruk helst prosjektlokal konfigurasjon eller en midlertidig profil, og ikke legg inn hemmeligheter som øvelsen ikke trenger. Start OpenCode på nytt etter hver endring.
+4. Kontroller at skillen faktisk blir aktivert, eller at pluginen eller MCP-integrasjonen faktisk gir den dokumenterte effekten. Sammenlign forsøket med baselinen og noter både nytte, kostnad og overraskelser.
+5. Deaktiver eller fjern utvidelsen, start OpenCode på nytt og kontroller at effekten forsvinner. Ikke behold en utvidelse du ikke forstår eller trenger.
+
+Diskuter til slutt: Hvilken effekt krevde bare instrukser og passet derfor som en skill? Hvilken effekt krevde hooks eller nye tools og passet som en plugin? Når er en ekstern MCP-server med en spesialisert datakilde riktigere? Hva måtte dere undersøkt grundigere før dere kunne brukt utvidelsen i et jobbprosjekt?
+
+[Se refleksjonsforslag](../fasit/ekstra.md#a-skills-og-plugins-fra-fellesskapet)
+
+## 🧩 B. Mål kontekst før du fyller den
 
 `AGENTS.md` ligger i grunnkonteksten, mens skills lastes ved behov og subagenter får egne samtaler. Mer kontekst er ikke gratis: den kan øke inputkostnad, fortrenge relevant informasjon og gjøre instruksjoner vanskeligere å følge. Samtidig kan for lite kontekst gi flere verktøykall og dyrere feil.
 
@@ -14,9 +39,9 @@ Disse oppgavene er mer åpne. Velg det som virker interessant; de bygger ikke p�
 
 Diskuter også cache: Identisk, stabil prompt-prefiks kan ofte caches av leverandøren, men cache gjør ikke irrelevant kontekst gratis eller ufarlig. Eksakt pris og cachepolitikk avhenger av valgt modell og leverandør.
 
-[Se refleksjonsforslag](../fasit/ekstra.md#a-kontekst-og-kostnad)
+[Se refleksjonsforslag](../fasit/ekstra.md#b-kontekst-og-kostnad)
 
-## 🧩 B. Lag en repeterbar command
+## 🧩 C. Lag en repeterbar command
 
 En command er en navngitt promptmal brukeren starter eksplisitt, for eksempel `/contract-check`. Den er nyttig for en kjent inngang til en arbeidsflyt. En skill velges av agenten ved behov; en hook kjører på en hendelse; en command velges av mennesket.
 
@@ -30,9 +55,9 @@ Kontroller først at `.opencode/agents/contract-reviewer.md` finnes fra oppgave 
 
 Start OpenCode på nytt og kjør `/contract-check quiz endpoint`.
 
-[Se løsningsforslag](../fasit/ekstra.md#b-command)
+[Se løsningsforslag](../fasit/ekstra.md#c-command)
 
-## 🧩 C. Gi harnesset et custom tool
+## 🧩 D. Gi harnesset et custom tool
 
 En plugin kan registrere et verktøy med kode og et argumentskjema. Modellen velger **om og når** verktøyet brukes, mens implementasjonen bestemmer nøyaktig **hva** det gjør.
 
@@ -42,9 +67,9 @@ Start OpenCode på nytt. Be deretter agenten svare på hvor mange spørsmål dat
 
 Diskuter forskjellen mellom et custom tool og å la agenten kjøre en fri shell-kommando.
 
-[Se løsningsforslag](../fasit/ekstra.md#c-custom-tool)
+[Se løsningsforslag](../fasit/ekstra.md#d-custom-tool)
 
-## 🧩 D. Bygg en kvalitetsport med hooks
+## 🧩 E. Bygg en kvalitetsport med hooks
 
 En plugin utvider selve harnesset rundt modellen. Hooks reagerer deterministisk på hendelser eller verktøykall; de trenger ikke håpe at modellen husker en instruks. Lokale `.ts`- og `.js`-filer i `.opencode/plugins/` lastes automatisk ved oppstart.
 
@@ -91,4 +116,4 @@ Diskuter med sidemannen:
 3. Hva skal skje dersom lint feiler?
 4. Når er en hook bedre enn en instruks i `AGENTS.md`?
 
-[Se løsningsforslag og refleksjon](../fasit/ekstra.md#d-hooks-og-kvalitetsport)
+[Se løsningsforslag og refleksjon](../fasit/ekstra.md#e-hooks-og-kvalitetsport)

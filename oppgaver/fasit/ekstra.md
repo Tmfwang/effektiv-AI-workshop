@@ -1,6 +1,22 @@
 # Løsningsforslag og refleksjon: ekstraoppgaver
 
-## A. Kontekst og kostnad
+## A. Skills og plugins fra fellesskapet
+
+Det finnes ikke én riktig kombinasjon av utvidelser. Et godt forsøk dokumenterer en baseline, tester én endring om gangen og kontrollerer den faktiske effekten i stedet for å anta at installasjonen virket.
+
+Se etter disse vurderingene:
+
+- En skill består hovedsakelig av instrukser som modellen kan velge å laste. Kontroller derfor både aktivering og om instruksene faktisk endrer resultatet.
+- En plugin kjører kode i OpenCode-prosessen og kan registrere hooks eller tools. En MCP-server er en separat integrasjon som tilbyr verktøy og datakilder gjennom en standard protokoll. Les kildekoden og undersøk tilganger, nettverkskall og avhengigheter før installasjon.
+- Popularitet, nedlastingstall og automatiske sikkerhetsskanninger er nyttige signaler, men erstatter ikke kildekontroll og en vurdering av vedlikeholderen.
+- En utvidelse bør gi målbar nytte sammenlignet med baselinen. Flere funksjoner kan også gi mer støy, større angrepsflate eller høyere tokenbruk.
+- Prosjektlokal installasjon, versjonslåsing og utprøving uten hemmeligheter begrenser konsekvensene dersom utvidelsen oppfører seg uventet.
+
+Skillen passer når effekten kan oppnås med arbeidsinstrukser og modellens skjønn. En plugin passer når effekten krever hooks eller tett integrasjon med OpenCode-prosessen. En MCP-server passer når et avgrenset verktøy eller en ekstern datakilde skal kunne brukes på tvers av harness. Alle typene må vurderes på nytt når kildekoden eller den installerte versjonen endres.
+
+Med CodeGraph bør deltakeren sammenligne samme strukturelle spørsmål med og uten indeksen. Færre søk og fil-lesinger kan gjøre svaret raskere og billigere, men ett stort verktøysvar kan også fylle mer av den gjenværende samtalekonteksten. Resultatet bør derfor vurderes ut fra både verktøykall, tokenbruk, svartid og presisjon.
+
+## B. Kontekst og kostnad
 
 Det finnes ikke ett forventet tall; modell, leverandør, cache og normal variasjon mellom kjøringer påvirker resultatet. Sammenlign differansen i `opencode stats` før og etter hver kjøring dersom TUI-en ikke viser nok informasjon. Kontroller også at `quiz-expert` faktisk ble aktivert bare i skill-varianten.
 
@@ -18,7 +34,7 @@ Identiske og stabile prompt-prefiks kan ofte caches, men vilkårene varierer mel
 
 En sjelden regel bør bare flyttes fra `AGENTS.md` dersom den gjelder arbeidsområdet skillen dekker. En regel om validering av seedede spørsmål passer for eksempel i `quiz-expert`; en regel som gjelder alt arbeid i repoet bør bli værende i `AGENTS.md`. Dersom hovedoppgavene har etterlatt `AGENTS.md` uten en slik regel, er det riktig å nøye seg med et forslag i stedet for å finne på en permanent regel.
 
-## B. Command
+## C. Command
 
 `.opencode/commands/contract-check.md`:
 
@@ -36,7 +52,7 @@ Sammenlign sannhetskilden i OpenAPI, Ktor-implementasjonen og Next.js BFF. Ikke 
 
 Siden `contract-reviewer` er en subagent, vil `agent` normalt starte den som en underoppgave også uten `subtask`. `subtask: true` gjør valget eksplisitt og sikrer den isolerte kjøringen. Commanden gjør starten repeterbar; agentfilen eier fortsatt rollen og permissions.
 
-## C. Custom tool
+## D. Custom tool
 
 En mulig `.opencode/plugins/quiz-tools.ts`:
 
@@ -69,7 +85,7 @@ Med migreringen slik den ligger i repoet, skal verktøyet svare at den oppretter
 
 Her er poenget verktøygrensen: modellen får et smalere, navngitt alternativ til shell. For at dette også skal være en sikkerhetsgrense, må verktøyet gis til en agent som har `bash: deny` og bare de øvrige permissions den trenger.
 
-## D. Hooks og kvalitetsport
+## E. Hooks og kvalitetsport
 
 ### Del A
 

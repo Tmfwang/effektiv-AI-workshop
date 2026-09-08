@@ -2,6 +2,8 @@
 
 I workshoppen undersøker du hvordan instrukser, skills, subagenter og verktøy via MCP-servere påvirker hva en AI-agent vet og kan gjøre, og hvordan oppsettet av disse kan påvirke effektiveten til agenten.
 
+Er du usikker på et uttrykk underveis, finner du forklaringer i [begrepslista](./BEGREPER.md).
+
 ## Kjekt å vite før du begynner
 
 1. Start alltid OpenCode fra reporoten.
