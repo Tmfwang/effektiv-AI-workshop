@@ -1,15 +1,13 @@
 # Agentisk AI: Rydd opp etter Kliff Arne
 
-I workshoppen undersøker du hvordan instrukser, skills, subagenter og verktøy påvirker hva en AI-agent vet og kan gjøre.
+I workshoppen undersøker du hvordan instrukser, skills, subagenter og verktøy via MCP-servere påvirker hva en AI-agent vet og kan gjøre, og hvordan oppsettet av disse kan påvirke effektiveten til agenten.
 
-## Før du begynner
+## Kjekt å vite før du begynner
 
-1. Start OpenCode fra reporoten.
-2. Start OpenCode på nytt etter endringer i konfigurasjonsfiler.
+1. Start alltid OpenCode fra reporoten.
+2. Start alltid OpenCode på nytt etter endringer i konfigurasjonsfiler.
 3. Test endringene ved å snakke med agenten.
-4. Bruk hint og løsningsforslag hvis du står fast.
-
-> Ikke legg hemmeligheter eller API-nøkler i repoet.
+4. Bruk hint, løsningsforslag eller spør agenten hvis du står fast.
 
 ## Hovedløype
 

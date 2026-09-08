@@ -2,13 +2,21 @@
 
 ## A. Kontekst og kostnad
 
-Det finnes ikke ett forventet tall; modell, leverandør og cache påvirker resultatet. Se etter disse avveiningene:
+Det finnes ikke ett forventet tall; modell, leverandør, cache og normal variasjon mellom kjøringer påvirker resultatet. Sammenlign differansen i `opencode stats` før og etter hver kjøring dersom TUI-en ikke viser nok informasjon. Kontroller også at `quiz-expert` faktisk ble aktivert bare i skill-varianten.
+
+Se etter disse avveiningene:
 
 - Fast kontekst passer for korte, stabile regler med høy konsekvens.
 - Skills reduserer normal grunnkontekst, men krever at beskrivelsen gjør aktiveringen pålitelig.
 - Subagenter isolerer spesialarbeid, men delegering sender ny input og produserer ny output.
 - Kortere output og færre unødvendige verktøykall kan være vel så viktig som en billigere modell.
 - En liten modell er ikke billig dersom den må prøve fem ganger; en dyr modell er ikke effektiv dersom oppgaven er mekanisk.
+
+Den direkte varianten kan være presis uten ekstra verktøykall, men betaler for all innlimt kontekst med én gang. Skill-varianten holder startprompten liten, men agenten må velge skillen riktig og kan trenge verktøykall for å hente filer som skillen peker til. Én kjøring er derfor en indikasjon, ikke et bevis på hvilken variant som alltid er billigst.
+
+Identiske og stabile prompt-prefiks kan ofte caches, men vilkårene varierer mellom leverandører og modeller. Cache fjerner heller ikke risikoen for at irrelevant kontekst fortrenger nyttig informasjon eller gjør instruksjonene vanskeligere å følge.
+
+En sjelden regel bør bare flyttes fra `AGENTS.md` dersom den gjelder arbeidsområdet skillen dekker. En regel om validering av seedede spørsmål passer for eksempel i `quiz-expert`; en regel som gjelder alt arbeid i repoet bør bli værende i `AGENTS.md`. Dersom hovedoppgavene har etterlatt `AGENTS.md` uten en slik regel, er det riktig å nøye seg med et forslag i stedet for å finne på en permanent regel.
 
 ## B. Command
 
@@ -26,7 +34,7 @@ Kontroller samsvar i API-kontrakten for dette omfanget: $ARGUMENTS
 Sammenlign sannhetskilden i OpenAPI, Ktor-implementasjonen og Next.js BFF. Ikke endre filer. Returner funn sortert etter alvorlighetsgrad med filreferanser, etterfulgt av manglende tester. Si tydelig fra dersom det ikke finnes funn.
 ```
 
-`subtask: true` isolerer kjøringen som en underoppgave. Commanden gjør starten eksplisitt og repeterbar; agentfilen eier fortsatt rollen og permissions.
+Siden `contract-reviewer` er en subagent, vil `agent` normalt starte den som en underoppgave også uten `subtask`. `subtask: true` gjør valget eksplisitt og sikrer den isolerte kjøringen. Commanden gjør starten repeterbar; agentfilen eier fortsatt rollen og permissions.
 
 ## C. Custom tool
 
@@ -57,7 +65,9 @@ export const QuizTools = (async ({ worktree }) => ({
 })) satisfies Plugin
 ```
 
-En robust produksjonsløsning burde parse SQL eller spørre databasen. Her er poenget verktøygrensen: modellen får et smalere, navngitt alternativ til shell. For at dette også skal være en sikkerhetsgrense, må verktøyet gis til en agent som har `bash: deny` og bare de øvrige permissions den trenger.
+Med migreringen slik den ligger i repoet, skal verktøyet svare at den oppretter **10 quizspørsmål**. Opptellingen avhenger av at hvert spørsmål står på en egen linje som begynner med `(`. En robust produksjonsløsning burde parse SQL, eller telle i en ny database der bare migreringene er kjørt. Å spørre en eksisterende utviklingsdatabase kan gi feil svar fordi brukeren kan ha lagt til flere spørsmål.
+
+Her er poenget verktøygrensen: modellen får et smalere, navngitt alternativ til shell. For at dette også skal være en sikkerhetsgrense, må verktøyet gis til en agent som har `bash: deny` og bare de øvrige permissions den trenger.
 
 ## D. Hooks og kvalitetsport
 
@@ -80,7 +90,7 @@ export const QualityGate = (async () => {
 ### Del B
 
 ```typescript
-import { isAbsolute, relative, resolve } from "node:path"
+import { isAbsolute, relative, resolve, sep } from "node:path"
 import type { Plugin } from "@opencode-ai/plugin"
 
 export const QualityGate = (async ({ $, worktree }) => {
@@ -104,11 +114,15 @@ export const QualityGate = (async ({ $, worktree }) => {
           : resolve(worktree, changedPath)
         const frontendPath = relative(frontendRoot, absolutePath)
 
-        if (frontendPath.startsWith("..") || isAbsolute(frontendPath)) continue
+        if (
+          frontendPath === ".." ||
+          frontendPath.startsWith(`..${sep}`) ||
+          isAbsolute(frontendPath)
+        ) continue
         if (!/\.(js|jsx|mjs|ts|tsx)$/.test(frontendPath)) continue
 
         console.log(`[quality-gate] sjekker ${frontendPath}`)
-        const result = await $`volta run pnpm eslint ${frontendPath}`
+        const result = await $`volta run pnpm eslint -- ${frontendPath}`
           .cwd(frontendRoot)
           .nothrow()
         if (result.exitCode !== 0) {
@@ -124,6 +138,6 @@ Denne løsningen henter alle `Add`- og `Update`-filer fra en patch. En produksjo
 
 ### Produksjonsstrategi
 
-Automatisk lint etter hver filendring gir rask feedback, men kan bli tregt og støyende. `.nothrow()` hindrer at en lintfeil gjør et allerede fullført edit-kall til en verktøyfeil. Et vanlig kompromiss er å samle endrede filer og kjøre sjekken ved `session.idle`, eller la hooken bare logge/påminne og kjøre full sjekk én gang før agenten avslutter.
+Automatisk lint etter hver filendring gir rask feedback, men kan bli tregt og støyende. `.nothrow()` hindrer at en lintfeil gjør et allerede fullført edit-kall til en verktøyfeil. Et vanlig kompromiss er å samle endrede filer og bruke pluginens `event`-hook til å kjøre sjekken når et `session.status`-event melder at sesjonen er `idle`. Et enklere alternativ er å la hooken bare logge eller påminne, og kjøre full sjekk én gang før agenten avslutter.
 
 Det finnes ikke ett riktig svar på om hooken bør formatere eller bare rapportere. Automatisk formatering kan holde arbeidsområdet ryddig, men kan også skjule hva agenten endret eller skape nye endringer mellom to steg. En hook passer best når reaksjonen må skje hver gang og kan gjøres forutsigbart; en `AGENTS.md`-instruks passer bedre når agenten må vurdere kontekst og hensikt.
