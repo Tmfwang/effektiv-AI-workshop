@@ -57,7 +57,7 @@ En **variant** endrer innstillingene til samme modell, ofte hvor mye resonnering
 
 ### 🧩 Oppgave 0C: Velg workshopmodell
 
-1. Kjør `/models`, finn **GPT-5.6 Luna** under riktig tilbyder og velg den.
+1. Kjør `/models`, finn **GPT-5.6 Luna** (evt. **Claude Haiku**) under riktig tilbyder og velg den.
 2. Velg `default` varianten 
 
 > [!TIP]
@@ -77,7 +77,7 @@ Bruk `Plan` når du vil undersøke før noe endres, og `Build` når du vil gjenn
 
 ## Kontekst og kostnad
 
-Jo mer AI-agenten jobber, desto mer kode både leser og skriver den. Dette øker størrelsen på konteksten i sesjonen din, og dermed kostnaden. Vi skal ikke gå dypere inn på dette i denne workshoppen, men OpenCode viser live i sesjonen både størrelsen på kontekstvinduet og den nåværende kostnaden (dersom leverandøren din støtter dette). Dette kan være greit å følge med på når du bruker agenter i hverdagen.
+Jo mer AI-agenten jobber, desto mer kode både leser og skriver den. Dette øker størrelsen på konteksten i sesjonen din, og dermed kostnaden. Vi skal ikke gå dypere inn på dette i denne oppgaven, men OpenCode viser live i sesjonen både størrelsen på kontekstvinduet og den nåværende kostnaden (dersom leverandøren din støtter dette). Dette kan være greit å følge med på når du bruker agenter i hverdagen.
 
 > [!TIP]
 > `/new` tømmer kontekstvinduet ditt og starter en ny sesjon. Bruk dette når konteksten blir for stor, eller du starter på en *ny* oppgave.

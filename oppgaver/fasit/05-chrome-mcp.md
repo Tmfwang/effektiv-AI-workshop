@@ -36,14 +36,14 @@ opencode mcp list
 En mulig testmelding er:
 
 ```text
-Bruk Chrome DevTools MCP til å åpne http://localhost:3000. Ta et snapshot og fortell kort hva som vises. Utfør én ufarlig handling i quizen, ta et skjermbilde, og rapporter konsollfeil og mislykkede nettverkskall. Ikke endre kildekode.
+Bruk Chrome DevTools MCP til å åpne http://localhost:3000. Ta et snapshot og fortell kort hva som vises. Start en ny quiz i applikasjonen, svar på første spørsmål, bekreft at appen går videre til spørsmål 2, ta et skjermbilde av den nye tilstanden, og rapporter konsollfeil og mislykkede nettverkskall. Ikke endre kildekode.
 ```
 
 Et godt resultat viser at agenten:
 
 - navigerer med Chrome DevTools-verktøy i stedet for bare å hente HTML
 - baserer beskrivelsen på et snapshot av den gjengitte siden
-- kan samhandle med et synlig element og dokumentere resultatet
+- kan samhandle med et synlig element, observere at appen går videre og dokumentere den nye tilstanden
 - undersøker både konsoll og nettverk uten å påstå at fravær av funn er en feil
 - lar arbeidsområdet være uendret
 

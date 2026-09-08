@@ -1,11 +1,11 @@
 # Løsningsforslag: skill for å kjøre appen
 
-Her er én mulig løsning for `run-app` i `.agents/skills/run-app/SKILL.md`:
+3A definerer frontmatteren og dermed når skillen skal aktiveres. 3B fyller inn arbeidsinstruksene agenten leser etter aktivering. Her er én mulig samlet løsning for `run-app` i `.agents/skills/run-app/SKILL.md`:
 
 ```markdown
 ---
 name: run-app
-description: Start appen, kjør appen lokalt, eller åpne quizen. Bruk når backend og frontend skal startes for lokal utvikling.
+description: Start appen, kjør appen lokalt, eller åpne quizen. Bruk BARE når backend og frontend skal startes for lokal utvikling.
 ---
 
 # Kjør appen lokalt

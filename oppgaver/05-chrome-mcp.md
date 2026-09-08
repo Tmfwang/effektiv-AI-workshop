@@ -2,7 +2,7 @@
 
 MCP standardiserer hvordan en agent finner og kaller verktøy fra eksterne servere. En nettleserserver gir agenten mer enn tekst fra en URL: Den kan navigere, klikke, lese den gjengitte siden og undersøke konsoll- og nettverkstrafikk.
 
-I denne oppgaven skal du koble OpenCode til den offisielle [Chrome DevTools MCP-serveren](https://github.com/ChromeDevTools/chrome-devtools-mcp). Serveren kjører lokalt, men får kontroll over en Chrome-profil og kan sende innhold fra nettleseren videre til modellen. Bruk derfor en isolert profil og unngå sider med innlogging eller sensitive data.
+I denne oppgaven skal du koble OpenCode til den offisielle [Chrome DevTools MCP-serveren](https://github.com/ChromeDevTools/chrome-devtools-mcp). Serveren kjører lokalt, men får kontroll over en Chrome-profil og kan sende innhold fra nettleseren videre til modellen.
 
 ## Fire deler av harnesset
 
@@ -20,10 +20,10 @@ Kort sagt: `AGENTS.md` gir faste regler, skills gir valgfri veiledning, subagent
 ### 🧩 Oppgave 5A: Koble til Chrome DevTools
 
 1. Kontroller at Chrome er installert på maskinen.
-2. Åpne [`opencode.jsonc`](../opencode.jsonc), og finn den utkommenterte `mcp`-blokka ved siden av `enabled_providers`.
+2. [Åpne `opencode.jsonc`](../opencode.jsonc), og finn den utkommenterte `mcp`-blokka ved siden av `enabled_providers`.
 3. Fjern `//` fra linjene i blokka for å aktivere den. Du trenger ikke endre kommandoen eller kunne alle detaljene i den.
 4. Avslutt OpenCode helt og start det på nytt fra reporoten.
-5. Kjør `opencode mcp list` i en annen terminal og kontroller at serveren er tilkoblet.
+5. Kjør `/mcps` i OpenCode-sesjonen og kontroller at serveren er tilkoblet.
 
 [Se løsningsforslag for oppgave 5A](./fasit/05-chrome-mcp.md#del-a)
 
@@ -33,9 +33,9 @@ Når OpenCode starter, kobler det til aktiverte MCP-servere og gjør verktøyene
 
 ### 🧩 Oppgave 5B: Undersøk quiz-appen med nettleseren
 
-1. Start quiz-appen lokalt ved å bruke skillen fra [oppgave 3](./03-lag-skill.md), eller følg [`README.md`](../README.md).
+1. Start quiz-appen lokalt ved å be agenten bruke skillen `run-app` fra [oppgave 3](./03-lag-skill.md), eller følg [`README.md`](../README.md).
 2. Be agenten åpne `http://localhost:3000` med Chrome MCP, ta et snapshot og kort beskrive det som faktisk vises.
-3. Be agenten utføre starte quizzen, svare på det første spørsmålet, og ta et skjermbilde av resultatet.
+3. Be agenten starte quizzen, svare på det første spørsmålet, bekrefte at appen går videre til spørsmål 2, og ta et skjermbilde av den nye tilstanden.
 4. Be agenten kontrollere konsollmeldinger og mislykkede nettverkskall.
 5. Sammenlign agentens rapport med det du ser i det åpne Chrome-vinduet.
 
@@ -51,7 +51,7 @@ Diskuter med sidemannen:
 2. Når er nettleserverktøyet bedre enn å hente tekst direkte fra en nettside, eller bedre enn en vanlig automatisert test?
 3. Bør serveren være aktiv i alle sesjoner, eller bare ved behov?
 4. Hvilke andre MCPer har du hørt om, og hva brukes de til?
-   5. Test de gjerne ut i dette repoet, ved å oppdatere [`opencode.jsonc`](../opencode.jsonc)
+   1. Test de gjerne ut i dette repoet, ved å oppdatere [`opencode.jsonc`](../opencode.jsonc)
 
 Sett `enabled` til `false` i [`opencode.jsonc`](../opencode.jsonc) når du er ferdig, start OpenCode på nytt og bekreft med `/mcps` at serveren er deaktivert.
 

@@ -24,7 +24,7 @@ Etter en intern spøk la teammedlemmet ditt, Kliff Arne, inn litt tvungen folkeo
 
 
 
-> [!NOTE]
+> [!TIP]
 > Tenk spesielt på dette:
 > - Hvilken informasjon bør alltid ligge i konteksten?
 > - Hva kan agenten finne selv når den trenger det?
