@@ -1,3 +1,9 @@
+> **Bruker du Claude i stedet for OpenCode?** Bytt til branchen `workshop-claude-code` før du starter workshopen:
+>
+> ```bash
+> git switch workshop-claude-code
+> ```
+
 # Agentisk AI: Rydd opp etter Kliff Arne
 
 I workshoppen undersøker du hvordan instrukser, skills, subagenter og verktøy via MCP-servere påvirker hva en AI-agent vet og kan gjøre, og hvordan oppsettet av disse kan påvirke effektiveten til agenten.
