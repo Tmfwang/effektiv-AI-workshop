@@ -1,6 +1,6 @@
 # Løsningsforslag: skill for å kjøre appen
 
-3A definerer frontmatteren og dermed når skillen skal aktiveres. 3B fyller inn arbeidsinstruksene agenten leser etter aktivering. Her er én mulig samlet løsning for `run-app` i `.agents/skills/run-app/SKILL.md`:
+3A definerer frontmatteren og dermed når skillen skal aktiveres. 3B fyller inn arbeidsinstruksene agenten leser etter aktivering. Her er én mulig samlet løsning for `run-app` i `.claude/skills/run-app/SKILL.md`:
 
 ```markdown
 ---

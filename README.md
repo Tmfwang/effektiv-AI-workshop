@@ -1,6 +1,6 @@
 # StackCheck local quiz
 
-> **Workshop:** Start med [`oppgaver/README.md`](oppgaver/README.md) for den workshopen om agentisk AI-oppsett med OpenCode.
+> **Workshop:** Start med [`oppgaver/README.md`](oppgaver/README.md) for workshoppen om agentisk AI-oppsett med Claude Code.
 
 A local full-stack quiz application with a Next.js BFF, Ktor API, and a persistent SQLite database. The shared question bank starts with ten English questions and can be extended from the UI. Quiz sessions and results remain in browser memory only.
 
@@ -18,10 +18,10 @@ A local full-stack quiz application with a Next.js BFF, Ktor API, and a persiste
 
 For the full workshop, including the Chrome DevTools MCP exercise, install or have access to:
 
-- [OpenCode](https://opencode.ai/)
+- [Claude Code](https://code.claude.com/docs/en/quickstart)
 - [Volta](https://volta.sh/)
 - The current stable version of [Google Chrome](https://www.google.com/chrome/)
-- A model provider account, such as GitHub Copilot, OpenAI, Anthropic, or Google
+- A Claude Pro, Max, Team, or Enterprise subscription, a Claude Console account, or access through a supported cloud provider
 - This repository and a repository-root `.env` file supplied by the facilitator
 
 ### macOS installation
@@ -32,8 +32,8 @@ The following commands use Homebrew. Skip the Homebrew installation if it is alr
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Install OpenCode and Chrome
-brew install anomalyco/tap/opencode
+# Install Claude Code and Chrome
+brew install --cask claude-code
 brew install --cask google-chrome
 
 # Install Volta, then start a new login shell
@@ -47,30 +47,32 @@ volta install node@22.22.2
 Verify the installations:
 
 ```bash
-opencode --version
+claude --version
 volta --version
 node --version
 npx --version
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version
 ```
 
-The project pins Node.js `22.22.2` and pnpm `11.25.0` in `frontend/package.json`. You do not need to install pnpm globally; Volta selects the pinned version when commands are run from `frontend/`. Chrome DevTools MCP is also not installed globally; `npx` downloads it when OpenCode starts the configured server.
+Use Claude Code **2.1.242 or newer**. The workshop relies on project skills, skill tool restrictions, project subagents, project MCP approval, hooks, and subagent details in `/tasks`. Run `claude update` for a native installation or `brew upgrade claude-code` for Homebrew if your installed version is older.
 
-If you do not want to use Homebrew for OpenCode, use the official installer instead:
+The project pins Node.js `22.22.2` and pnpm `11.25.0` in `frontend/package.json`. You do not need to install pnpm globally; Volta selects the pinned version when commands are run from `frontend/`. Chrome DevTools MCP is also not installed globally; `npx` downloads it when Claude Code starts the configured server.
+
+The recommended native Claude Code installer is:
 
 ```bash
-curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 Java 21, Gradle, Docker, and a global pnpm installation are not required. The Gradle Wrapper and Volta handle the project tooling. Git is only needed to clone the repository; if Git is missing on macOS, install the Command Line Tools with `xcode-select --install`.
 
 ## Before the workshop
 
-Authenticate OpenCode and install the project dependencies before the session:
+Authenticate Claude Code and install the project dependencies before the session:
 
 ```bash
-opencode auth list
-opencode auth login # only if the required provider is missing
+claude auth status
+claude auth login # only if you are not authenticated
 
 cd /path/to/effektiv-AI-workshop/frontend
 volta run pnpm install --frozen-lockfile

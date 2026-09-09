@@ -1,22 +1,14 @@
 # Løsningsforslag: kontraktanmelder
 
-Slett `quiz-sheriff.md`, og opprett `.opencode/agents/contract-reviewer.md`:
+Slett `quiz-sheriff.md`, og opprett `.claude/agents/contract-reviewer.md`:
 
 ```markdown
 ---
+name: contract-reviewer
 description: Kontrollerer samsvar mellom OpenAPI-kontrakten, Ktor-implementasjonen og Next.js BFF. Bruk til skrivebeskyttet API-kontraktgjennomgang, aldri til implementasjon.
-mode: subagent
-temperature: 0.1
-permission:
-  "*": deny
-  read: allow
-  glob: allow
-  grep: allow
-  list: allow
-  edit: deny
-  bash: deny
-  webfetch: deny # Ikke la agenten hente innhold direkte fra nettet.
-  task: deny
+tools: Read, Grep, Glob
+model: haiku
+permissionMode: plan
 ---
 
 Du er en skrivebeskyttet API-kontraktanmelder.
@@ -26,4 +18,6 @@ Sammenlign `openapi/quiz-api.yaml` med Ktor-rutene, relaterte modeller og Next.j
 Ikke rediger filer, kjør kommandoer, bruk nettet, deleger arbeid eller implementer rettelser.
 ```
 
-Lav temperatur er et signal om fokus, men prompt, kontekst og permissions betyr mer. Permissions er den deterministiske sikkerhetsgrensen; «ikke rediger» i prompten alene er bare en instruks.
+`tools` gir bare lesing og søk, og er den avgjørende skrivebeskyttelsen i dette oppsettet. `permissionMode: plan` forsterker arbeidsmåten. Prompten forklarer oppdraget, mens verktøylista begrenser kapabilitetene teknisk.
+
+`model: haiku` er et alias som Claude Code støtter for subagenter. Hvis organisasjonens modellpolicy ikke tillater Haiku, varsler Claude Code og bruker en tillatt reserve. Utelat `model` eller bruk `inherit` hvis alle skal bruke hovedsamtalens modell.

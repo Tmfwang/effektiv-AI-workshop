@@ -1,6 +1,6 @@
 # 🧩 3. Lag en ny skill
 
-Skills egner seg for repeterbare arbeidsmåter som bare er relevante av og til. Hvis instruksen gjelder alt arbeid, hører den heller hjemme i `AGENTS.md`. Hvis arbeidet bør isoleres og få egne verktøy eller en egen modell, kan en subagent passe bedre.
+Skills egner seg for repeterbare arbeidsmåter som bare er relevante av og til. Hvis instruksen gjelder alt arbeid, hører den heller hjemme i `CLAUDE.md`. Hvis arbeidet bør isoleres og få egne verktøy eller en egen modell, kan en subagent passe bedre.
 
 Kliff Arne stoppet etter den første skillen. Nå skal du lage en ny skill og se hvor presist bruksområdet må beskrives før agenten velger riktig.
 
@@ -8,7 +8,7 @@ Kliff Arne stoppet etter den første skillen. Nå skal du lage en ny skill og se
 
 Lag en skill som hjelper agenten med å starte både backend og frontend for lokal utvikling.
 
-Opprett `.agents/skills/run-app/SKILL.md` på gyldig YAML-format (se på [`quiz-expert` skillen for inspirasjon](../.agents/skills/quiz-expert/SKILL.md)). Skriv `name` og en norsk `description` som sier både **hva** skillen kan og **når** den skal brukes.
+Opprett `.claude/skills/run-app/SKILL.md` med gyldig YAML-frontmatter (se [quiz-expert](../.claude/skills/quiz-expert/SKILL.md) for inspirasjon). Skriv `name` og en norsk `description` som sier både **hva** skillen kan og **når** den skal brukes.
 
 I denne delen definerer du bare skillens navn og bruksområde i YAML-filen. Oppgave 3A svarer på «Når skal agenten velge skillen?». Selve arbeidsinstruksjonene skriver du i 3B.
 
@@ -30,7 +30,7 @@ Et godt `name` og en presis `description` handler derfor ikke bare om organiseri
 
 ### 🧩 Oppgave 3B: Skriv arbeidsinstruksene
 
-Fyll inn instruksjons-innholdet i skillen du opprettet under [`.agents/skills/`](../.agents/skills/). Dette innholdet leser agenten etter at skillen er valgt. Det skal forklare **hvordan** agenten starter og kontrollerer appen:
+Fyll inn instruksjonsinnholdet i skillen du opprettet under [`.claude/skills/`](../.claude/skills/). Dette innholdet leser agenten etter at skillen er valgt. Det skal forklare **hvordan** agenten starter og kontrollerer appen:
 
 1. Bruke oppstartsinstruksjonene i `README.md`.
 2. Fortelle hvordan avhengigheter installeres, backend og frontend startes, og hvordan appen verifiseres.
@@ -44,12 +44,14 @@ Oppgave 3B svarer på «Hva skal agenten gjøre etter at skillen er valgt?».
 [Se løsningsforslag for oppgave 3A og 3B](./losningsforslag/03-lag-skill.md)
 
 > [!TIP]
-> Du kan få et forslag fra agenten på hva *instruksjonene* for denne skillen bør være. Hvorfor ikke prøve ut OpenCode sin `Plan`-modus (ved å trykke på Tab-tasten inne i sesjonen) her også?
+> Du kan få et forslag fra agenten på hva *instruksjonene* bør være. Prøv gjerne Plan mode med `Shift+Tab`.
 
 ### 🧩 Oppgave 3C: Prøv grensene
 
-1. Start OpenCode på nytt.
+1. Start Claude Code på nytt slik at den nye skillen lastes inn. Kjør `/skills` og bekreft at `/run-app` er tilgjengelig.
 2. Still ett spørsmål som bør aktivere skillen.
-3. Verifiser at agenten fikk kjørt opp appen med skillen, ved å besøke http://localhost:3000
-3. Still ett nærliggende spørsmål som ikke bør aktivere den.
-4. Juster `description` dersom agenten velger feil.
+3. Verifiser at agenten fikk startet appen ved å besøke <http://localhost:3000>.
+4. Bruk `/clear`, og still ett nærliggende spørsmål som ikke bør aktivere den.
+5. Juster `description` dersom agenten velger feil. Start Claude Code på nytt før du tester endringen.
+
+Claude Code har også de innebygde skillene `/run`, `/verify` og `/run-skill-generator`. Diskuter hvorfor en kort, versjonskontrollert prosjekt-skill fortsatt kan være nyttig for en app som krever både backend, frontend og rotmiljø.

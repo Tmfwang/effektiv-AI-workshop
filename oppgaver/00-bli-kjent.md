@@ -1,86 +1,74 @@
-# 🧩 0. Bli kjent med OpenCode
+# 🧩 0. Bli kjent med Claude Code
 
-Før du endrer agentoppsettet, bruk noen minutter på å bli kjent med OpenCode som verktøy.
+Før du endrer agentoppsettet, bruk noen minutter på å bli kjent med Claude Code som verktøy.
 
 ## Autentiser deg
 
-OpenCode trenger tilgang til en modelltilbyder. Organisasjonen din kan for eksempel ha valgt GitHub Copilot, OpenAI, Anthropic eller Google.
-
-Hvis du ikke vet hvilken tilbyder eller konto du skal bruke, spør fasilitatoren. Du kan autentisere fra terminalen før oppstart.
+Claude Code kan brukes med et Claude-abonnement, en Claude Console-konto eller en støttet skytilbyder som organisasjonen har konfigurert. Spør fasilitatoren hvis du ikke vet hvilken konto du skal bruke.
 
 ### 🧩 Oppgave 0A: Kontroller innloggingen
 
-1. Kjør `opencode auth list`.
-2. Bekreft at GitHub Copilot eller tilbyderen fasilitatoren har oppgitt, står i listen.
-3. Kjør `opencode auth login` dersom den mangler, og følg innloggingsflyten.
+1. Kjør `claude` i terminalen.
+2. Kjør `/login` i agentsesjonen dersom du ikke er innlogget, og følg innloggingsflyten.
+3. Ikke legg API-nøkler i repoet, `.claude/settings.json` eller `.mcp.json`.
 
-## Start OpenCode
+## Start Claude Code
 
-Mappen du åpner OpenCode fra er viktig fordi den brukes til å finne prosjektets `AGENTS.md`, repo-spesifikk OpenCode-config, skills, agents og plugins.
+Mappen du starter Claude Code fra brukes til å finne prosjektets `CLAUDE.md`, `.claude/settings.json`, skills, subagenter og `.mcp.json`.
 
 ### 🧩 Oppgave 0B: Start i riktig mappe
 
-1. Åpne en terminal, gå til roten av dette repoet og start OpenCode:
+1. Åpne en terminal, gå til roten av dette repoet og start Claude Code:
 
-```
-cd /sti/til/effektiv-AI-workshop
+   ```bash
+   cd /path/to/effektiv-AI-workshop
+   claude
+   ```
 
-opencode
-```
+2. Godkjenn prosjektet dersom Claude Code viser en tillitsdialog.
+3. Kjør `/status`, og kontroller at `Project settings` vises blant innstillingskildene. Arbeidsmappen i oppstartsteksten skal være reporoten.
+4. Avslutt med `/exit` eller `Ctrl+D` to ganger, og start Claude Code på nytt.
 
-2. Avslutt med `/exit` eller `ctrl+c`, start OpenCode på nytt og fortsett derfra.
+## Modell og innsatsnivå
 
-## Modell og variant
+Claude Code viser modellene kontoen og organisasjonen din tillater. Modellutvalget og prisene kan endres, så workshoppen låser ikke et versjonsnummer i repoet.
 
-En **modell** er selve språkmodellen, for eksempel en modell fra OpenAI, Anthropic eller Google.
+En rask modell som Haiku passer ofte til enkel kartlegging. Sonnet er et godt standardvalg for kodearbeid, mens Opus kan være nyttig for de vanskeligste oppgavene. En billig modell kan likevel bli dyr hvis den trenger mange forsøk.
 
-### Relativ kostnad i GitHub Copilot
-
-Hvilken modell du velger å bruke er kanskje den viktigste faktoren når det kommer til kostnad. For å gi et raskt bilde av den relative kostnaden av de ulike modellene, så kan man se i Github Copilot sin prisoversikt under. Luna er i dette tilfellet satt til `1×`.
-
-| Modell | Kategori | 1M tokens som input | 1M tokens som output | Ca. relativ kostnad |
-| --- | --- | ---: | ---: | ---: |
-| GPT-5.6 Luna | Lightweight | $0.20 | $1.20 | **1×** |
-| GPT-5 mini | Lightweight | $0.25 | $2.00 | 1,5× |
-| Claude Haiku 4.5 | Versatile | $1.00 | $5.00 | 4,5× |
-| Claude Sonnet 5 | Versatile | $2.00 | $10.00 | 9,1× |
-| GPT-5.6 Terra | Versatile | $2.00 | $12.00 | 10× |
-| Claude Sonnet 4 / 4.6 | Versatile | $3.00 | $15.00 | 13,6× |
-| GPT-5.6 Sol | Powerful | $4.00 | $20.00 | 18,2× |
-| Claude Opus 4.7 / 4.8 / 5 | Powerful | $5.00 | $25.00 | 22,7× |
-| GPT-6 Astra | Powerful | $10.00 | $50.00 | 45,5× |
-
-
-Til denne workshoppen er oppgavene små og vi behøver ikke de største og dyreste modellene. Derfor bruker vi **GPT-5.6 Luna** videre. Hvis Luna ikke er tilgjengelig, er **Claude Haiku 4.5** et rimelig Claude-alternativ.
-
-En **variant** endrer innstillingene til samme modell, ofte hvor mye resonnering den bruker, altså hvor mye den tenker. Høyere resonneringsnivå kan gi bedre resultat på vanskelige oppgaver, men bruker ofte flere output-tokens og mer tid. Ikke alle modeller har varianter.
+`effort` styrer hvor mye arbeid modellen legger i et svar. Høyere nivå kan gi bedre resultat på krevende oppgaver, men bruker vanligvis mer tid og flere tokens.
 
 ### 🧩 Oppgave 0C: Velg workshopmodell
 
-1. Kjør `/models`, finn **GPT-5.6 Luna** (evt. **Claude Haiku**) under riktig tilbyder og velg den.
-2. Velg `default` varianten 
+1. Kjør `/model` og velg en tilgjengelig **Sonnet**-modell. Bruk ellers modellen fasilitatoren anbefaler.
+2. Kjør `/effort` og velg et lavt eller middels nivå.
+3. Legg merke til modellnavnet i statuslinjen. Du kan bruke `/model` og `/effort` igjen i en aktiv sesjon.
+
+## Permission modes
+
+Trykk `Shift+Tab` for å bytte permission mode:
+
+- **Manual** spør før filendringer og andre handlinger som ikke er godkjent.
+- **Accept edits** tillater filendringer automatisk.
+- **Plan** undersøker og foreslår endringer uten å redigere kildekoden.
+- **Auto** lar en sikkerhetsklassifisering vurdere handlingene automatisk, slik at Claude kan jobbe med færre tillatelsesspørsmål.
+
+Hvilke moduser som vises, kan variere med konto og oppsett.
+
+En prompt som sier «ikke endre filer» er en instruks. Plan mode og verktøybegrensninger er sterkere tekniske grenser.
+
+### 🧩 Oppgave 0D: Bytt permission mode
+
+1. Trykk `Shift+Tab` til statuslinjen viser Plan mode. Du kan også bruke `/plan`.
+2. Spør: `Forklar kort hva dette repoet inneholder.`
+3. Legg merke til at Claude kan lese og søke, men ikke redigere.
+4. Trykk `Shift+Tab` og gå tilbake til normalmodus eller `accept edits on` før du fortsetter.
+
+## Kontekst og bruk
+
+Jo mer agenten jobber, desto mer samtale, kildekode og verktøyresultater kan havne i kontekstvinduet. Bruk `/context` for å se hva som opptar plass. Bruk `/usage` for tilgjengelig bruksinformasjon; `/cost` er et alias i nyere Claude Code. Hva som vises avhenger av kontotype, og abonnementstall er ikke det samme som en API-faktura.
 
 > [!TIP]
-> Du kan alltid endre variant med `/variants`, eller modell med `/models`, selv i en aktiv agentsesjon
-
-## Agentmodus
-
-OpenCode kommer med to agentmoduser innebygd. `Build` er laget for å utføre arbeid og kan normalt redigere filer. `Plan` er laget for analyse og planlegging, med strengere tilganger. Modellen kan være den samme, men agentene har forskjellige instrukser og begrensinger.
-
-Bruk `Plan` når du vil undersøke før noe endres, og `Build` når du vil gjennomføre endringen. Dette kan være spesielt nyttig på større endringer, hvor du vil forsikre deg om at du og agenten er enig om implementeringsplanen før den setter igang.
-
-### 🧩 Oppgave 0D: Bytt primæragent
-
-1. Trykk `Tab` i en OpenCode-sesjon, og se hvordan det toggler den valgte agentmodusen.
-2. Bruk `Plan` til spørsmålet: `Forklar kort hva dette repoet inneholder.`
-3. Bytt tilbake til `Build` før du fortsetter.
-
-## Kontekst og kostnad
-
-Jo mer AI-agenten jobber, desto mer kode både leser og skriver den. Dette øker størrelsen på konteksten i sesjonen din, og dermed kostnaden. Vi skal ikke gå dypere inn på dette i denne oppgaven, men OpenCode viser live i sesjonen både størrelsen på kontekstvinduet og den nåværende kostnaden (dersom leverandøren din støtter dette). Dette kan være greit å følge med på når du bruker agenter i hverdagen.
+> `/clear` starter en ny samtale med tom kontekst. Den forrige samtalen slettes ikke og kan åpnes igjen med `/resume`.
 
 > [!TIP]
-> `/new` tømmer kontekstvinduet ditt og starter en ny sesjon. Bruk dette når konteksten blir for stor, eller du starter på en *ny* oppgave.
-
-> [!TIP]
-> `/compact` reduserer kontekstvinduet ditt ved at AI-agenten skriver en oppsummering til seg selv av hele sesjonen, som den da jobber videre utifra. Bruk dette dersom kontekstvinduet blir for stort *underveis* i en oppgave.
+> `/compact` oppsummerer samtalen slik at du kan fortsette en pågående oppgave med mindre kontekst.

@@ -1,6 +1,8 @@
 ---
+name: review-my-changes
 description: Hjelp meg å lære av og forbedre mine ucommittede endringer.
-agent: plan
+disable-model-invocation: true
+disallowed-tools: Edit, Write, NotebookEdit
 ---
 
 Gjennomgå de nåværende ucommittede endringene mine. Ikke endre filer.

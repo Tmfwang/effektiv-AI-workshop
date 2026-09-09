@@ -1,4 +1,4 @@
-# Løsningsforslag: `AGENTS.md`
+# Løsningsforslag: `CLAUDE.md`
 
 Dette er ett mulig minimum:
 

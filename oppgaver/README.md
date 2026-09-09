@@ -6,8 +6,8 @@ Er du usikker på et uttrykk underveis, finner du forklaringer i [begrepslista](
 
 ## Kjekt å vite før du begynner
 
-1. Start alltid OpenCode fra reporoten.
-2. Start alltid OpenCode på nytt etter endringer i konfigurasjonsfiler.
+1. Start alltid Claude Code fra reporoten.
+2. Bruk `/status` og `/doctor` hvis du er usikker på om prosjektoppsettet er lastet.
 3. Test endringene ved å snakke med agenten.
 4. Bruk hint, løsningsforslag eller spør agenten hvis du står fast.
 
@@ -15,8 +15,8 @@ Er du usikker på et uttrykk underveis, finner du forklaringer i [begrepslista](
 
 | Tid | Oppgave | Tema |
 | --- | --- | --- |
-| 10 min | [0. Bli kjent med OpenCode](./00-bli-kjent.md) | Oppstart og kontekst |
-| 5 min | [1. Fjern den interne spøken](./01-agents-md.md) | `AGENTS.md` |
+| 10 min | [0. Bli kjent med Claude Code](./00-bli-kjent.md) | Oppstart, modell og permissions |
+| 5 min | [1. Fjern den interne spøken](./01-claude-md.md) | `CLAUDE.md` |
 | 10 min | [2. Reparer quiz-eksperten](./02-reparer-skill.md) | Skills |
 | 10 min | [3. Lag en ny skill](./03-lag-skill.md) | Aktivering |
 | 10 min | [4. Avgrens quiz-sheriffen](./04-subagent.md) | Subagenter og permissions |

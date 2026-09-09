@@ -2,63 +2,61 @@
 
 ## Del A
 
-I [`opencode.jsonc`](../../opencode.jsonc) ligger `mcp`-blokka ferdig utkommentert. Fjern `//` fra linjene i blokka, og behold de andre feltene:
+Den ferdig konfigurerte prosjektfila [`.mcp.json`](../../.mcp.json) inneholder:
 
-```jsonc
+```json
 {
-  "$schema": "https://opencode.ai/config.json",
-  // Behold eksisterende konfigurasjon her.
-  "mcp": {
+  "mcpServers": {
     "chrome-devtools": {
-      "type": "local",
-      "command": [
-        "npx",
+      "type": "stdio",
+      "command": "npx",
+      "args": [
         "-y",
         "chrome-devtools-mcp@latest",
-        "--isolated=true"
-      ],
-      "enabled": true
+        "--isolated=true",
+        "--no-usage-statistics",
+        "--no-performance-crux"
+      ]
     }
   }
 }
 ```
 
-Avslutt og start OpenCode på nytt etter endringen. Deretter skal denne kommandoen vise `chrome-devtools` som tilkoblet:
+Kontroller konfigurasjonen fra terminalen:
 
 ```bash
-opencode mcp list
+claude mcp list
+claude mcp get chrome-devtools
 ```
 
-`--isolated=true` gir Chrome en midlertidig profil som slettes når nettleseren lukkes. Dersom tilkoblingen feiler, kontroller først at `npx` og en støttet Chrome-versjon kan startes fra samme terminal som OpenCode.
+Den delte `.claude/settings.json` aktiverer `chrome-devtools` for alle som bruker repoet. Deretter viser `/mcp` statusen i sesjonen. `--isolated=true` gir Chrome en midlertidig profil, som reduserer risikoen for å eksponere vanlige informasjonskapsler og innloggede sesjoner.
+
+Chrome DevTools MCP samler bruksstatistikk som standard. Ytelsesverktøy kan også sende trace-URL-er til Google CrUX. Workshopoppsettet reserverer seg mot begge deler med `--no-usage-statistics` og `--no-performance-crux`. Dette er uavhengig av Chrome-nettleserens egne innstillinger.
+
+Hvis tilkoblingen feiler, kontroller at `npx` og en støttet Chrome-versjon kan startes fra samme terminal. Bruk `claude doctor` for konfigurasjonsfeil.
 
 ## Del B
 
 En mulig testmelding er:
 
 ```text
-Bruk Chrome DevTools MCP til å åpne http://localhost:3000. Ta et snapshot og fortell kort hva som vises. Start en ny quiz i applikasjonen, svar på første spørsmål, bekreft at appen går videre til spørsmål 2, ta et skjermbilde av den nye tilstanden, og rapporter konsollfeil og mislykkede nettverkskall. Ikke endre kildekode.
+Bruk Chrome DevTools MCP til å åpne http://localhost:3000. Ta et snapshot og fortell kort hva som vises. Start en ny quiz, svar på første spørsmål, bekreft at appen går videre til spørsmål 2, ta et skjermbilde av den nye tilstanden, og rapporter konsollfeil og mislykkede nettverkskall. Ikke endre kildekode.
 ```
 
-Et godt resultat viser at agenten:
+Et godt resultat viser at Claude:
 
-- navigerer med Chrome DevTools-verktøy i stedet for bare å hente HTML
-- baserer beskrivelsen på et snapshot av den gjengitte siden
-- kan samhandle med et synlig element, observere at appen går videre og dokumentere den nye tilstanden
-- undersøker både konsoll og nettverk uten å påstå at fravær av funn er en feil
+- bruker Chrome DevTools-verktøy i stedet for bare å hente HTML
+- baserer beskrivelsen på den gjengitte siden
+- samhandler med synlige elementer og observerer tilstandsendringen
+- undersøker både konsoll og nettverk
 - lar arbeidsområdet være uendret
 
-Verktøynavnene kan variere mellom serverversjoner. Poenget er å observere at agenten velger flere smale nettleserverktøy i riktig rekkefølge.
+Verktøynavnene kan variere mellom serverversjoner. Poenget er å observere flere smale nettleserverktøy i riktig rekkefølge.
 
 ## Tillit og avgrensning
 
-Chrome DevTools MCP kjører lokalt, men sideinnhold, skjermbilder, konsollmeldinger og nettverksdata kan bli del av modellkonteksten. En isolert profil reduserer risikoen for å eksponere informasjonskapsler, innloggede sesjoner og nettleserhistorikk fra den vanlige profilen.
+Chrome DevTools MCP kjører lokalt, men sideinnhold, skjermbilder, konsollmeldinger og nettverksdata kan bli del av modellkonteksten. Den isolerte profilen og telemetriflaggene reduserer risiko, men gjør ikke sensitivt innhold på sidene ufarlig.
 
-Å hente innhold direkte fra en nettadresse passer når du bare trenger teksten på siden. Chrome DevTools passer når resultatet avhenger av JavaScript, interaksjon, nettverk eller den faktiske gjengivelsen. Automatiserte tester er fortsatt bedre for repeterbar regresjonskontroll; MCP-verktøyet er særlig nyttig for utforskning og feilsøking.
+Teksthenting passer når du bare trenger innholdet fra en side. Chrome DevTools passer når resultatet avhenger av JavaScript, interaksjon, nettverk eller gjengivelse. Automatiserte tester er fortsatt best for repeterbar regresjonskontroll.
 
-Serveren kan deaktiveres uten å slette oppsettet:
-
-```jsonc
-"enabled": false
-```
-
-Etter omstart skal `opencode mcp list` vise serveren som deaktivert, og verktøyene skal ikke være tilgjengelige for agenten.
+Serveren deaktiveres uten å slette oppsettet gjennom servermenyen i `/mcp`. Valget lagres per bruker og prosjekt i `~/.claude.json`, ikke i den delte `.mcp.json`. `claude mcp list` viser serveren som deaktivert til den aktiveres igjen.

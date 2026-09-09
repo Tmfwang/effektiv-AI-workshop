@@ -1,8 +1,8 @@
 # Begreper i workshoppen
 
-## AI-credits
+## Bruk og kostnad
 
-AI-credits er en forbruksenhet eller kostnadsramme for bruk av AI-modeller. Hvor mye som trekkes, avhenger vanligvis av modell, antall tokens og leverandørens prismodell. For Github Copilot er 1 AI-credit tilsvarende $0.01.
+Claude Code kan brukes gjennom abonnement, API-forbruk eller en støttet skytilbyder. `/usage` viser informasjonen som er tilgjengelig for kontotypen din; `/cost` er et alias i nyere versjoner. API-kostnader avhenger vanligvis av modell, input, output og cache, mens abonnementsbruk ikke kan leses direkte som en fakturert dollarverdi.
 
 ## Token
 
@@ -12,9 +12,9 @@ En token er en liten tekstdel som en AI-modell leser eller produserer. En token 
 
 Kontekstvinduet er hvor mange tokens en modell sender med i ett modell-kall. Det rommer blant annet instrukser, samtalehistorikk, verktøyresultater og brukerens melding, samt plassen som trengs for modellens svar. Når vinduet blir fullt, må harnesset forkorte, oppsummere eller fjerne eldre innhold før samtalen kan fortsette.
 
-## `AGENTS.md`
+## `CLAUDE.md`
 
-`AGENTS.md` inneholder prosjektinstruksjoner som agenten får med i grunnkonteksten. Den passer best for korte regler som gjelder alt eller det meste av arbeidet i repoet.
+`CLAUDE.md` inneholder prosjektinstruksjoner som Claude Code får med i grunnkonteksten. Den passer best for korte regler som gjelder alt eller det meste av arbeidet i repoet.
 
 ## Skills
 
@@ -38,19 +38,19 @@ Modellkostnader beregnes vanligvis fra mengden input- og output-tokens, valgt mo
 
 ## Scripting og tools (verktøy)
 
-Et **tool** er en navngitt funksjon agenten kan velge å kalle med strukturerte argumenter, mens scripting ofte betyr at agenten skriver eller kjører friere kode og shell-kommandoer. I workshoppen bruker vi `tool` om det tekniske OpenCode-begrepet og **verktøy** som norsk oversettelse. Ordet verktøy kan ellers brukes bredere om for eksempel shell, nettlesere og integrasjoner. Tools gir vanligvis en smalere og mer forutsigbar grense enn generell scripting.
+Et **tool** er en navngitt funksjon agenten kan velge å kalle med strukturerte argumenter, mens scripting ofte betyr at agenten skriver eller kjører friere kode og shell-kommandoer. I workshoppen bruker vi `tool` om det tekniske Claude Code-begrepet og **verktøy** som norsk oversettelse. Ordet verktøy kan ellers brukes bredere om for eksempel shell, nettlesere og integrasjoner. Tools gir vanligvis en smalere og mer forutsigbar grense enn generell scripting.
 
 ## Harness
 
-Et harness er applikasjonen og infrastrukturen rundt modellen som håndterer kontekst, instrukser, verktøy, permissions og arbeidsflyt. OpenCode er harnesset som brukes i denne workshoppen.
+Et harness er applikasjonen og infrastrukturen rundt modellen som håndterer kontekst, instrukser, verktøy, permissions og arbeidsflyt. Claude Code er harnesset som brukes i denne workshoppen.
 
 ## Commands
 
-En command er en navngitt promptmal som brukeren starter eksplisitt, for eksempel `/contract-check`. Den gjør en kjent arbeidsflyt enkel å starte på samme måte hver gang.
+En command er en navngitt arbeidsflyt som brukeren starter eksplisitt, for eksempel `/contract-check`. I Claude Code lages nye commands som skills under `.claude/skills/`; det eldre `.claude/commands/`-formatet støttes fortsatt.
 
 ## Plugins
 
-En plugin er kode som utvider harnesset med for eksempel nye tools eller hooks. Lokale OpenCode-plugins i dette prosjektet ligger i `.opencode/plugins/`.
+En Claude Code-plugin er en distribusjonspakke som kan samle skills, subagenter, hooks og MCP-servere. Kjørbar logikk ligger vanligvis i et hookscript eller en MCP-server, ikke i et eget plugin-API inne i Claude Code-prosessen.
 
 ## Hooks
 
