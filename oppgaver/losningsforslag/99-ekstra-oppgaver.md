@@ -16,7 +16,35 @@ Skillen passer når effekten kan oppnås med arbeidsinstrukser og modellens skj�
 
 Med CodeGraph bør deltakeren sammenligne samme strukturelle spørsmål med og uten indeksen. Færre søk og fil-lesinger kan gjøre svaret raskere og billigere, men ett stort verktøysvar kan også fylle mer av den gjenværende samtalekonteksten. Resultatet bør derfor vurderes ut fra både verktøykall, tokenbruk, svartid og presisjon.
 
-## B. Kontekst og kostnad
+## B. Review my changes
+
+En mulig `.opencode/commands/review-my-changes.md`:
+
+```markdown
+---
+description: Gjennomgå mine ucommittede endringer med korte, konkrete forbedringsforslag.
+agent: plan
+---
+
+Gjennomgå alle nåværende ucommittede endringer i Git-arbeidsområdet, inkludert staged, unstaged og nye filer. Ekstra fokus fra brukeren: $ARGUMENTS
+
+Ikke endre filer eller implementer forslag. Vurder korrekthet, tydelighet, vedlikeholdbarhet og manglende tester. Prioriter maksimalt fem konkrete forbedringer.
+
+Svar kort i dette formatet:
+
+1. **Kort oppsummering**: Hva endringen ser ut til å gjøre.
+2. **Viktigste forbedringer**: Alvorlighetsgrad og filreferanse, hvorfor det betyr noe, og ett konkret forslag per funn.
+3. **Gode grep**: Ett eller to valg som fungerer godt og bør videreføres.
+4. **Neste steg**: De viktigste handlingene i prioritert rekkefølge.
+
+Hvis du ikke finner konkrete forbedringspunkter, si det tydelig og nevn eventuelle testområder du ikke kunne verifisere.
+```
+
+`agent: plan` gjør commanden skrivebeskyttet gjennom plan-agentens permissions, ikke bare gjennom teksten «ikke endre filer». Agenten trenger Git-status og både vanlig og staged diff for å se endrede versjonerte filer. Nye filer vises i status, men ikke i en vanlig diff før de er lagt til, så de må leses separat.
+
+Et godt svar er selektivt. Det gjentar ikke hele diffen eller fyller lista med smakspreferanser, men forklarer de viktigste forbedringene med en tydelig kobling mellom sted, konsekvens og neste handling. Positive observasjoner gjør reviewen mer lærerik så lenge de er konkrete og ikke fortrenger reelle funn.
+
+## C. Kontekst og kostnad
 
 Det finnes ikke ett forventet tall; modell, leverandør, cache og normal variasjon mellom kjøringer påvirker resultatet. Sammenlign differansen i `opencode stats` før og etter hver kjøring dersom TUI-en ikke viser nok informasjon. Kontroller også at `quiz-expert` faktisk ble aktivert bare i skill-varianten.
 
@@ -33,24 +61,6 @@ Den direkte varianten kan være presis uten ekstra verktøykall, men betaler for
 Identiske og stabile prompt-prefiks kan ofte caches, men vilkårene varierer mellom leverandører og modeller. Cache fjerner heller ikke risikoen for at irrelevant kontekst fortrenger nyttig informasjon eller gjør instruksjonene vanskeligere å følge.
 
 En sjelden regel bør bare flyttes fra `AGENTS.md` dersom den gjelder arbeidsområdet skillen dekker. En regel om validering av seedede spørsmål passer for eksempel i `quiz-expert`; en regel som gjelder alt arbeid i repoet bør bli værende i `AGENTS.md`. Dersom hovedoppgavene har etterlatt `AGENTS.md` uten en slik regel, er det riktig å nøye seg med et forslag i stedet for å finne på en permanent regel.
-
-## C. Command
-
-`.opencode/commands/contract-check.md`:
-
-```markdown
----
-description: Kjør en skrivebeskyttet kontroll av samsvar i API-kontrakten.
-agent: contract-reviewer
-subtask: true
----
-
-Kontroller samsvar i API-kontrakten for dette omfanget: $ARGUMENTS
-
-Sammenlign sannhetskilden i OpenAPI, Ktor-implementasjonen og Next.js BFF. Ikke endre filer. Returner funn sortert etter alvorlighetsgrad med filreferanser, etterfulgt av manglende tester. Si tydelig fra dersom det ikke finnes funn.
-```
-
-Siden `contract-reviewer` er en subagent, vil `agent` normalt starte den som en underoppgave også uten `subtask`. `subtask: true` gjør valget eksplisitt og sikrer den isolerte kjøringen. Commanden gjør starten repeterbar; agentfilen eier fortsatt rollen og permissions.
 
 ## D. Custom tool
 

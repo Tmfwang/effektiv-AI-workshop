@@ -25,7 +25,7 @@ Kort sagt: `AGENTS.md` gir faste regler, skills gir valgfri veiledning, subagent
 4. Avslutt OpenCode helt og start det på nytt fra reporoten.
 5. Kjør `/mcps` i OpenCode-sesjonen og kontroller at serveren er tilkoblet.
 
-[Se løsningsforslag for oppgave 5A](./fasit/05-chrome-mcp.md#del-a)
+[Se løsningsforslag for oppgave 5A](./losningsforslag/05-chrome-mcp.md#del-a)
 
 ## Fra konfigurasjon til verktøykall
 
@@ -41,7 +41,7 @@ Når OpenCode starter, kobler det til aktiverte MCP-servere og gjør verktøyene
 
 Vær eksplisitt om at agenten skal bruke Chrome MCP, og ikke endre kildekode. Hvis nettleseren ikke åpnes, be agenten liste tilgjengelige sider først.
 
-[Se testforslag for oppgave 5B](./fasit/05-chrome-mcp.md#del-b)
+[Se testforslag for oppgave 5B](./losningsforslag/05-chrome-mcp.md#del-b)
 
 ### 🧩 Oppgave 5C: Avgrens tilliten
 
@@ -55,4 +55,4 @@ Diskuter med sidemannen:
 
 Sett `enabled` til `false` i [`opencode.jsonc`](../opencode.jsonc) når du er ferdig, start OpenCode på nytt og bekreft med `/mcps` at serveren er deaktivert.
 
-[Se refleksjonsforslag for oppgave 5C](./fasit/05-chrome-mcp.md#tillit-og-avgrensning)
+[Se refleksjonsforslag for oppgave 5C](./losningsforslag/05-chrome-mcp.md#tillit-og-avgrensning)

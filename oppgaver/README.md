@@ -24,6 +24,6 @@ Er du usikker på et uttrykk underveis, finner du forklaringer i [begrepslista](
 
 For en 30-minutters workshop: gjør oppgave 0, 1, 2 og 5A. La fasilitatoren demonstrere oppgave 4 og ett nettleserkall fra 5B.
 
-Ferdig tidlig? Fortsett med [avanserte oppgaver](./ekstra/README.md).
+Ferdig tidlig? Fortsett med [avanserte oppgaver](./99-ekstra-oppgaver.md).
 
 For fasilitatoren: [fasilitatornotater](./FASILITATOR.md).

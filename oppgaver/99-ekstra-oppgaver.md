@@ -1,6 +1,6 @@
 # 🧩 Ekstraoppgaver
 
-Disse oppgavene er mer åpne. Velg det som virker interessant; de bygger ikke på hverandre. Oppgave C forutsetter likevel at du har laget `contract-reviewer` i oppgave 4.
+Disse oppgavene er mer åpne. Velg det som virker interessant; de bygger ikke på hverandre.
 
 ## 🧩 A. Prøvekjør skills og plugins fra fellesskapet
 
@@ -25,9 +25,37 @@ Prøv gjerne også [`CodeGraph`](https://github.com/colbymchenry/codegraph). Det
 
 Diskuter til slutt: Hvilken effekt krevde bare instrukser og passet derfor som en skill? Hvilken effekt krevde hooks eller nye tools og passet som en plugin? Når er en ekstern MCP-server med en spesialisert datakilde riktigere? Hva måtte dere undersøkt grundigere før dere kunne brukt utvidelsen i et jobbprosjekt?
 
-[Se refleksjonsforslag](../fasit/ekstra.md#a-skills-og-plugins-fra-fellesskapet)
+[Se refleksjonsforslag](./losningsforslag/99-ekstra-oppgaver.md#a-skills-og-plugins-fra-fellesskapet)
 
-## 🧩 B. Mål kontekst før du fyller den
+## 🧩 B. Lag commanden `/review-my-changes`
+
+En command kan gjøre en nyttig arbeidsflyt enkel å gjenta. Kliff Arne har opprettet skjelettet [`.opencode/commands/review-my-changes.md`](../.opencode/commands/review-my-changes.md), men prompten gir foreløpig lite hjelp.
+
+Fullfør commanden slik at `/review-my-changes` gjennomgår alle nåværende ucommittede endringer, inkludert staged, unstaged og nye filer. Reviewen skal hjelpe utvikleren å lære og forbedre sin egen kode, ikke bare godkjenne eller avvise den.
+
+Krav:
+
+- Ikke endre filer eller implementer forslag.
+- Prioriter konkrete forbedringer innen korrekthet, tydelighet, vedlikeholdbarhet og tester.
+- Forklar kort **hvorfor** hvert funn betyr noe, og foreslå en konkret forbedring.
+- Bruk et kort og enkelt format med filreferanser. Begrens antall funn, og prioriter de viktigste.
+- Trekk fram ett eller to gode grep som utvikleren kan bygge videre på.
+- Si tydelig fra dersom det ikke finnes konkrete forbedringspunkter.
+- La brukeren gi et valgfritt fokus etter command-navnet ved hjelp av `$ARGUMENTS`.
+
+Start OpenCode på nytt, gjør en liten endring uten å committe den og kjør:
+
+```text
+/review-my-changes
+```
+
+Prøv deretter et valgfritt fokus, for eksempel `/review-my-changes særlig fokus på testene`. Vurder om svaret er kort, konkret og lærerikt nok til at du faktisk vet hva du bør gjøre videre.
+
+Diskuter til slutt: Hvorfor er «vær kritisk» en dårligere instruks enn tydelige kriterier og et fast svarformat? Er en prompt som sier «ikke endre filer» en faktisk sikkerhetsgrense?
+
+[Se løsningsforslag](./losningsforslag/99-ekstra-oppgaver.md#b-review-my-changes)
+
+## 🧩 C. Mål kontekst før du fyller den
 
 `AGENTS.md` ligger i grunnkonteksten, mens skills lastes ved behov og subagenter får egne samtaler. Mer kontekst er ikke gratis: den kan øke inputkostnad, fortrenge relevant informasjon og gjøre instruksjoner vanskeligere å følge. Samtidig kan for lite kontekst gi flere verktøykall og dyrere feil.
 
@@ -39,23 +67,7 @@ Diskuter til slutt: Hvilken effekt krevde bare instrukser og passet derfor som e
 
 Diskuter også cache: Identisk, stabil prompt-prefiks kan ofte caches av leverandøren, men cache gjør ikke irrelevant kontekst gratis eller ufarlig. Eksakt pris og cachepolitikk avhenger av valgt modell og leverandør.
 
-[Se refleksjonsforslag](../fasit/ekstra.md#b-kontekst-og-kostnad)
-
-## 🧩 C. Lag en repeterbar command
-
-En command er en navngitt promptmal brukeren starter eksplisitt, for eksempel `/contract-check`. Den er nyttig for en kjent inngang til en arbeidsflyt. En skill velges av agenten ved behov; en hook kjører på en hendelse; en command velges av mennesket.
-
-Kontroller først at `.opencode/agents/contract-reviewer.md` finnes fra oppgave 4. Opprett deretter `.opencode/commands/contract-check.md` som:
-
-- tar imot `$ARGUMENTS`
-- bruker `contract-reviewer`
-- ber om en skrivebeskyttet gjennomgang
-- krever funn sortert etter alvorlighetsgrad med filreferanser, etterfulgt av manglende tester
-- krever at agenten sier tydelig fra dersom den ikke finner avvik
-
-Start OpenCode på nytt og kjør `/contract-check quiz endpoint`.
-
-[Se løsningsforslag](../fasit/ekstra.md#c-command)
+[Se refleksjonsforslag](./losningsforslag/99-ekstra-oppgaver.md#c-kontekst-og-kostnad)
 
 ## 🧩 D. Gi harnesset et custom tool
 
@@ -67,7 +79,7 @@ Start OpenCode på nytt. Be deretter agenten svare på hvor mange spørsmål dat
 
 Diskuter forskjellen mellom et custom tool og å la agenten kjøre en fri shell-kommando.
 
-[Se løsningsforslag](../fasit/ekstra.md#d-custom-tool)
+[Se løsningsforslag](./losningsforslag/99-ekstra-oppgaver.md#d-custom-tool)
 
 ## 🧩 E. Bygg en kvalitetsport med hooks
 
@@ -75,7 +87,7 @@ En plugin utvider selve harnesset rundt modellen. Hooks reagerer deterministisk 
 
 `tool.execute.after` kjører etter at et verktøy er ferdig. Hooken får blant annet verktøynavnet i `input.tool` og argumentene i `input.args`. Dette er kraftig, men vær forsiktig: en hook kjøres ofte, bruker maskinen din, og en feil kan få selve verktøykallet til å feile.
 
-Kliff Arne opprettet [`quality-gate.ts`](../../.opencode/plugins/quality-gate.ts). Foreløpig består kvalitetsporten av navnet og en kommentar, så den slipper gjennom absolutt alt.
+Kliff Arne opprettet [`quality-gate.ts`](../.opencode/plugins/quality-gate.ts). Foreløpig består kvalitetsporten av navnet og en kommentar, så den slipper gjennom absolutt alt.
 
 ### Del A: Se at hooken lever
 
@@ -116,4 +128,4 @@ Diskuter med sidemannen:
 3. Hva skal skje dersom lint feiler?
 4. Når er en hook bedre enn en instruks i `AGENTS.md`?
 
-[Se løsningsforslag og refleksjon](../fasit/ekstra.md#e-hooks-og-kvalitetsport)
+[Se løsningsforslag og refleksjon](./losningsforslag/99-ekstra-oppgaver.md#e-hooks-og-kvalitetsport)

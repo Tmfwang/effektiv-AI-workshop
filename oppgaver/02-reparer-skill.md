@@ -46,7 +46,7 @@ Reparer [`SKILL.md`](../.agents/skills/quiz-expert/SKILL.md) slik at skillen kan
 > [!TIP]
 > Du kan få et forslag fra agenten på hvordan denne skillen bør forbedres. Hvorfor ikke prøve ut OpenCode sin `Plan`-modus (ved å trykke på Tab-tasten inne i sesjonen) i samme slengen?
 
-[Se løsningsforslag for oppgave 2B](./fasit/02-reparer-skill.md)
+[Se løsningsforslag for oppgave 2B](./losningsforslag/02-reparer-skill.md)
 
 ### 🧩 Oppgave 2C: Test aktiveringen på nytt
 

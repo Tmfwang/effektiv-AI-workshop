@@ -41,7 +41,7 @@ Fyll inn instruksjons-innholdet i skillen du opprettet under [`.agents/skills/`]
 
 Oppgave 3B svarer på «Hva skal agenten gjøre etter at skillen er valgt?».
 
-[Se løsningsforslag for oppgave 3A og 3B](./fasit/03-lag-skill.md)
+[Se løsningsforslag for oppgave 3A og 3B](./losningsforslag/03-lag-skill.md)
 
 > [!TIP]
 > Du kan få et forslag fra agenten på hva *instruksjonene* for denne skillen bør være. Hvorfor ikke prøve ut OpenCode sin `Plan`-modus (ved å trykke på Tab-tasten inne i sesjonen) her også?

@@ -56,7 +56,7 @@ Bruk `mode: subagent` og `permission`. Start med å nekte alt, og tillat derette
 sin `Plan`-modus (ved å trykke på Tab-tasten inne i sesjonen) dersom du ønsker!
 
 
-[Se løsningsforslag for oppgave 4B](./fasit/04-subagent.md)
+[Se løsningsforslag for oppgave 4B](./losningsforslag/04-subagent.md)
 
 ## Manuell og automatisk delegering
 
@@ -76,4 +76,4 @@ Undersøk om OpenAPI-kontrakten og backend-rutene er konsistente. Deleger kontra
 
 Sammenlign manuell delegering med orkestratorens valg. Ble oppgaven avgrenset? Kom resultatet tilbake i en nyttig form?
 
-Det finnes ikke ett riktig svar på sammenligningen. Se [løsningsforslaget for subagenten](./fasit/04-subagent.md) dersom du vil kontrollere permissions og prompt.
+Det finnes ikke ett riktig svar på sammenligningen. Se [løsningsforslaget for subagenten](./losningsforslag/04-subagent.md) dersom du vil kontrollere permissions og prompt.
