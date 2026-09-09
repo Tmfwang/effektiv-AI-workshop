@@ -31,4 +31,4 @@ Etter en intern spøk la teammedlemmet ditt, Kliff Arne, inn litt tvungen folkeo
 > - Hvilke regler forhindrer kostbare feil, som å redigere generert kode som allikevel blir overskrevet?
 
 
-[Se løsningsforslag for oppgave 1B](./fasit/01-agents-md.md)
+[Se løsningsforslag for oppgave 1B](./losningsforslag/01-agents-md.md)
