@@ -10,7 +10,9 @@ En skill kan ligge i `.opencode/skills/<navn>/SKILL.md`. Den må skrives på YAM
 2. Bekreft at `quiz-expert` blir oppdaget fra [`.opencode/skills/quiz-expert/SKILL.md`](../.opencode/skills/quiz-expert/SKILL.md).
 3. Tøm kontekstvinduet med `/new`, og be agenten `Legg til et seedet quizspørsmål om Narvik i det første databaseoppsettet`. Legg merke til om skillen aktiveres, og hvor stor konteksten blir til slutt som følge av denne ene oppgaven som agenten utførte med skillen.
    1. Skillen er aktivert dersom du ser `→ Skill "quiz-expert"` i terminalen
-4. Ta en titt på hvordan skillen [quiz-expert](../.opencode/skills/quiz-expert/SKILL.md) er bygd opp; legg merke til formatet på både `name` og `description`, og den generelle instruksjonen som skillen består av.
+4. Dersom skillen ikke ble aktivert, frykt ikke! Oppgave 2B skal se nærmere på hvorfor dette kan skje.
+
+5. Ta en titt på hvordan skillen [quiz-expert](../.opencode/skills/quiz-expert/SKILL.md) er bygd opp; legg merke til formatet på både `name` og `description`, og den generelle instruksjonen som skillen består av.
 
 ## Skills og kontekstkostnad
 
