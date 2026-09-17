@@ -33,7 +33,7 @@ Når OpenCode starter, kobler det til aktiverte MCP-servere og gjør verktøyene
 
 ### 🧩 Oppgave 5B: Undersøk quiz-appen med nettleseren
 
-1. Start quiz-appen lokalt ved å be agenten bruke skillen `run-app` fra [oppgave 3](./03-lag-skill.md), eller følg [`README.md`](../README.md).
+1. Start quiz-appen lokalt ved å be agenten bruke skillen `run-app` fra [oppgave 3](./03-lag-skill.md), eller følg [`APPLICATION.md`](../APPLICATION.md).
 2. Be agenten åpne `http://localhost:3000` med Chrome MCP, ta et snapshot og kort beskrive det som faktisk vises.
 3. Be agenten starte quizzen, svare på det første spørsmålet, bekrefte at appen går videre til spørsmål 2, og ta et skjermbilde av den nye tilstanden.
 4. Be agenten kontrollere konsollmeldinger og mislykkede nettverkskall.

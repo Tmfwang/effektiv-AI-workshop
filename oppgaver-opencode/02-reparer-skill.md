@@ -2,15 +2,15 @@
 
 En skill er instruksjoner som agenten kan laste **ved behov**. Agenten ser `name` og `description` først; selve innholdet **bruker ikke kontekst før skillen aktiveres**. `description` er derfor både søkeord og «når skal jeg bruke dette?»-regel.
 
-En skill kan ligge i `.agents/skills/<navn>/SKILL.md`. Denne strukturen støttes av OpenCode og flere andre agent-harness. Den må skrives på YAML-format med både `name` og `description`, og mappenavnet som skillen ligger i må samsvare med `name`.
+En skill kan ligge i `.opencode/skills/<navn>/SKILL.md`. Den må skrives på YAML-format med både `name` og `description`, og mappenavnet som skillen ligger i må samsvare med `name`.
 
 ### 🧩 Oppgave 2A: Finn skillen
 
 1. Be agenten liste tilgjengelige skills.
-2. Bekreft at `quiz-expert` blir oppdaget fra [`.agents/skills/quiz-expert/SKILL.md`](../.agents/skills/quiz-expert/SKILL.md).
+2. Bekreft at `quiz-expert` blir oppdaget fra [`.opencode/skills/quiz-expert/SKILL.md`](../.opencode/skills/quiz-expert/SKILL.md).
 3. Tøm kontekstvinduet med `/new`, og be agenten `Legg til et seedet quizspørsmål om Narvik i det første databaseoppsettet`. Legg merke til om skillen aktiveres, og hvor stor konteksten blir til slutt som følge av denne ene oppgaven som agenten utførte med skillen.
    1. Skillen er aktivert dersom du ser `→ Skill "quiz-expert"` i terminalen
-4. Ta en titt på hvordan skillen [quiz-expert](../.agents/skills/quiz-expert/SKILL.md) er bygd opp; legg merke til formatet på både `name` og `description`, og den generelle instruksjonen som skillen består av.
+4. Ta en titt på hvordan skillen [quiz-expert](../.opencode/skills/quiz-expert/SKILL.md) er bygd opp; legg merke til formatet på både `name` og `description`, og den generelle instruksjonen som skillen består av.
 
 ## Skills og kontekstkostnad
 
@@ -37,7 +37,7 @@ ekspertisen består av. OpenCode finner skillen, men agenten har nesten ikke noe
 
 Her betyr «initielle spørsmål» **seedede spørsmål** som legges inn når applikasjonen startes. Det er en annen arbeidsflyt enn å legge til et spørsmål gjennom UI-et eller API-et.
 
-Reparer [`SKILL.md`](../.agents/skills/quiz-expert/SKILL.md) slik at skillen kan brukes når agenten skal **legge til seedede quizspørsmål**. Skillen skal gi agenten nok prosjektkontekst til å finne ut hvordan endringen skal gjennomføres på riktig måte. Forbedre skillen med:
+Reparer [`SKILL.md`](../.opencode/skills/quiz-expert/SKILL.md) slik at skillen kan brukes når agenten skal **legge til seedede quizspørsmål**. Skillen skal gi agenten nok prosjektkontekst til å finne ut hvordan endringen skal gjennomføres på riktig måte. Forbedre skillen med:
 
 - en konkret beskrivelse av **hva** skillen skal hjelpe med og **når** den skal brukes
 - relevante filer og valideringsregler for seedede spørsmål

@@ -1,6 +1,6 @@
 # Løsningsforslag: skill for å kjøre appen
 
-3A definerer frontmatteren og dermed når skillen skal aktiveres. 3B fyller inn arbeidsinstruksene agenten leser etter aktivering. Her er én mulig samlet løsning for `run-app` i `.agents/skills/run-app/SKILL.md`:
+3A definerer frontmatteren og dermed når skillen skal aktiveres. 3B fyller inn arbeidsinstruksene agenten leser etter aktivering. Her er én mulig samlet løsning for `run-app` i `.opencode/skills/run-app/SKILL.md`:
 
 ```markdown
 ---
@@ -10,9 +10,9 @@ description: Start appen, kjør appen lokalt, eller åpne quizen. Bruk BARE når
 
 # Kjør appen lokalt
 
-1. Les oppstartsseksjonen i `README.md` og sjekk at `.env` finnes i roten.
+1. Les oppstartsseksjonen i `APPLICATION.md` og sjekk at `.env` finnes i roten.
 2. Start Ktor fra `backend/` med `./gradlew run` i en egen prosess.
-3. Installer frontend-avhengigheter og generer API-klienten som beskrevet i `README.md` dersom det ikke allerede er gjort.
+3. Installer frontend-avhengigheter og generer API-klienten som beskrevet i `APPLICATION.md` dersom det ikke allerede er gjort.
 4. Start Next.js fra `frontend/` med `volta run pnpm dev` i en egen prosess.
 5. Kontroller at quizen svarer på `http://localhost:3000`, og rapporter URL-ene og eventuelle oppstartsfeil.
 

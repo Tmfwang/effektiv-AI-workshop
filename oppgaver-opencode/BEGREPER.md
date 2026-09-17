@@ -2,7 +2,7 @@
 
 ## AI-credits
 
-AI-credits er en forbruksenhet eller kostnadsramme for bruk av AI-modeller. Hvor mye som trekkes, avhenger vanligvis av modell, antall tokens og leverandørens prismodell. For Github Copilot er 1 AI-credit tilsvarende $0.01.
+AI-credits er en forbruksenhet eller kostnadsramme for bruk av AI-modeller i GitHub Copilot. Hvor mye som trekkes, avhenger vanligvis av modell, antall tokens og leverandørens prismodell. For Github Copilot er 1 AI-credit tilsvarende $0.01.
 
 ## Token
 
