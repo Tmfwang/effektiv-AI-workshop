@@ -1,4 +1,4 @@
-# Løsningsforslag: `AGENTS.md`
+# Løsningsforslag: `CLAUDE.md`
 
 Dette er ett mulig minimum:
 
@@ -10,4 +10,4 @@ Kjør fokuserte tester for endret kode før bredere sjekker.
 Ikke les eller eksponer hemmeligheter fra `.env`.
 ```
 
-Poenget er ikke akkurat disse formuleringene. Reglene er korte, gjelder nesten alle oppgaver og hindrer sannsynlige feil. Detaljer om mapper og kommandoer finnes allerede i [`README.md`](../../README.md) og kan leses ved behov.
+Poenget er ikke akkurat disse formuleringene. Reglene er korte, gjelder nesten alle oppgaver og hindrer sannsynlige feil. Detaljer om mapper og kommandoer finnes allerede i [`APPLICATION.md`](../../APPLICATION.md) og kan leses ved behov.

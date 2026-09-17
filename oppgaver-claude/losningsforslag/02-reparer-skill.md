@@ -1,6 +1,6 @@
 # Løsningsforslag: quiz-eksperten
 
-En mulig [`.agents/skills/quiz-expert/SKILL.md`](../../.agents/skills/quiz-expert/SKILL.md) for seedede spørsmål er:
+En mulig [`.claude/skills/quiz-expert/SKILL.md`](../../.claude/skills/quiz-expert/SKILL.md) for seedede spørsmål er:
 
 ```markdown
 ---
@@ -13,7 +13,7 @@ description: Seedede quizspørsmål i denne quiz-applikasjonen. Bruk BARE når d
 Bruk denne rekkefølgen når du skal legge til eller endre et seedet quizspørsmål:
 
 1. Les `backend/src/main/resources/db/migration/V1__init_schema_and_seed.sql` for seeddata og tabellstrukturen.
-2. Les `openapi/quiz-api.yaml` og `backend/src/main/kotlin/no/effektiv/quiz/service/QuestionService.kt` for felter og valideringsregler: ett spørsmål, nøyaktig fire alternativer, fire posisjoner fra 0 til 3 og nøyaktig ett riktig alternativ.
+2. Les `openapi/quiz-api.yaml` og `backend/src/main/kotlin/no/effektiv/quiz/service/QuestionService.kt` for felter og validering: ikke-blankt spørsmål på maks 500 tegn, nøyaktig fire ikke-blanke alternativer på maks 200 tegn, alternativer som er unike uavhengig av store bokstaver og omkringliggende whitespace, posisjoner fra 0 til 3 og nøyaktig ett riktig alternativ. Merk at databaseindeksen alene bare sikrer maksimalt ett riktig alternativ; service- og seedlogikken må også sikre at ett finnes.
 3. Se `backend/src/main/kotlin/no/effektiv/quiz/repository/ExposedQuestionRepository.kt` for hvordan seedradene mappes til domenemodellen.
 4. Endre aldri en allerede anvendt Flyway-migrering. Bruk en ny versjonert migrering for en eksisterende database, og oppdater bare startmigreringa når det faktisk gjelder en ny database.
 5. Kjør `./backend/gradlew -p backend test --tests no.effektiv.quiz.QuizApiIntegrationTest` for å verifisere migrering og oppstart. Kjør full testpakke når endringa tilsier det.

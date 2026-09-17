@@ -8,7 +8,7 @@ Kliff Arne stoppet etter den første skillen. Nå skal du lage en ny skill og se
 
 Lag en skill som hjelper agenten med å starte både backend og frontend for lokal utvikling.
 
-Opprett `.agents/skills/run-app/SKILL.md` på gyldig YAML-format (se på [`quiz-expert` skillen for inspirasjon](../.agents/skills/quiz-expert/SKILL.md)). Skriv `name` og en norsk `description` som sier både **hva** skillen kan og **når** den skal brukes.
+Opprett `.opencode/skills/run-app/SKILL.md` på gyldig YAML-format (se på [`quiz-expert` skillen for inspirasjon](../.opencode/skills/quiz-expert/SKILL.md)). Skriv `name` og en norsk `description` som sier både **hva** skillen kan og **når** den skal brukes.
 
 I denne delen definerer du bare skillens navn og bruksområde i YAML-filen. Oppgave 3A svarer på «Når skal agenten velge skillen?». Selve arbeidsinstruksjonene skriver du i 3B.
 
@@ -30,9 +30,9 @@ Et godt `name` og en presis `description` handler derfor ikke bare om organiseri
 
 ### 🧩 Oppgave 3B: Skriv arbeidsinstruksene
 
-Fyll inn instruksjons-innholdet i skillen du opprettet under [`.agents/skills/`](../.agents/skills/). Dette innholdet leser agenten etter at skillen er valgt. Det skal forklare **hvordan** agenten starter og kontrollerer appen:
+Fyll inn instruksjons-innholdet i skillen du opprettet under [`.opencode/skills/`](../.opencode/skills/). Dette innholdet leser agenten etter at skillen er valgt. Det skal forklare **hvordan** agenten starter og kontrollerer appen:
 
-1. Bruke oppstartsinstruksjonene i `README.md`.
+1. Bruke oppstartsinstruksjonene i `APPLICATION.md`.
 2. Fortelle hvordan avhengigheter installeres, backend og frontend startes, og hvordan appen verifiseres.
 3. Ha alle beskrivelser og instrukser på norsk.
 4. Være kortere enn 30 linjer.
