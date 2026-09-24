@@ -54,7 +54,7 @@ tilfellet satt til `1×`.
 | GPT-6 Astra | Powerful | $10.00 | $50.00 | 100× |
 
 
-Til denne workshoppen er oppgavene små og vi behøver ikke de største og dyreste modellene. Derfor bruker vi **GPT-6 Luna** videre. Hvis Luna ikke er tilgjengelig, er **Claude Haiku 4.5** et rimelig Claude-alternativ.
+Til denne workshoppen er oppgavene små og vi behøver ikke de største og dyreste modellene. Derfor bruker vi **GPT-6 Luna** videre.
 
 En **variant** endrer innstillingene til samme modell, ofte hvor mye resonnering den bruker, altså hvor mye den tenker. Høyere resonneringsnivå kan gi bedre resultat på vanskelige oppgaver, men bruker ofte flere output-tokens og mer tid. Ikke alle modeller har varianter.
 
