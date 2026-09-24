@@ -41,15 +41,16 @@ tilfellet satt til `1×`.
 
 | Modell | Kategori | 1M tokens som input | 1M tokens som output | Ca. relativ kostnad |
 | --- | --- | ---: | ---: | ---: |
-| GPT-5.6 Luna | Lightweight | $0.20 | $1.20 | **1×** |
-| GPT-5 mini | Lightweight | $0.25 | $2.00 | 1,5× |
-| Claude Haiku 4.5 | Versatile | $1.00 | $5.00 | 4,5× |
-| Claude Sonnet 5 | Versatile | $2.00 | $10.00 | 9,1× |
-| GPT-5.6 Terra | Versatile | $2.00 | $12.00 | 10× |
-| Claude Sonnet 4 / 4.6 | Versatile | $3.00 | $15.00 | 13,6× |
-| GPT-5.6 Sol | Powerful | $4.00 | $20.00 | 18,2× |
-| Claude Opus 4.7 / 4.8 / 5 | Powerful | $5.00 | $25.00 | 22,7× |
-| GPT-6 Astra | Powerful | $10.00 | $50.00 | 45,5× |
+| GPT-6 Luna | Lightweight | $0.10 | $0.50 | **1×** |
+| GPT-5 mini | Lightweight | $0.25 | $2.00 | 3,3× |
+| Claude Haiku 4.5 | Versatile | $1.00 | $5.00 | 10× |
+| Claude Sonnet 5 | Versatile | $2.00 | $10.00 | 20× |
+| GPT-6 Sol | Powerful | $2.00 | $10.00 | 20× |
+| GPT-5.6 Terra | Versatile | $2.00 | $12.00 | 22× |
+| Claude Sonnet 4 / 4.6 | Versatile | $3.00 | $15.00 | 30× |
+| Claude Opus 5.5 | Powerful | $4.00 | $20.00 | 40× |
+| Claude Opus 4.7 / 4.8 / 5 | Powerful | $5.00 | $25.00 | 50× |
+| GPT-6 Astra | Powerful | $10.00 | $50.00 | 100× |
 
 Claude Code viser modellene kontoen og organisasjonen din tillater. Modellutvalget og prisene kan endres, så workshoppen låser ikke et versjonsnummer i repoet.
 
