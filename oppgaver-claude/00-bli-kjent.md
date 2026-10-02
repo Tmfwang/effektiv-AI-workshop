@@ -36,7 +36,7 @@ En **modell** er selve språkmodellen, for eksempel en modell fra OpenAI, Anthro
 ### Relativ kostnad i GitHub Copilot
 
 Hvilken modell du velger å bruke er kanskje den viktigste faktoren når det kommer til kostnad. For å gi et raskt bilde
-av den relative kostnaden av de ulike modellene, så kan man se i Github Copilot sin prisoversikt under. Luna er i dette
+av den relative kostnaden av de ulike modellene, så kan man se i [Github Copilot sin prisoversikt under](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing). Luna er i dette
 tilfellet satt til `1×`.
 
 | Modell | Kategori | 1M tokens som input | 1M tokens som output | Ca. relativ kostnad |
@@ -45,7 +45,7 @@ tilfellet satt til `1×`.
 | GPT-5 mini | Lightweight | $0.25 | $2.00 | 3,3× |
 | Claude Haiku 4.5 | Versatile | $1.00 | $5.00 | 10× |
 | Claude Sonnet 5 | Versatile | $2.00 | $10.00 | 20× |
-| GPT-6 Sol | Powerful | $2.00 | $10.00 | 20× |
+| GPT-6.1 Sol | Powerful | $2.00 | $10.00 | 20× |
 | GPT-5.6 Terra | Versatile | $2.00 | $12.00 | 22× |
 | Claude Sonnet 4 / 4.6 | Versatile | $3.00 | $15.00 | 30× |
 | Claude Opus 5.5 | Powerful | $4.00 | $20.00 | 40× |
