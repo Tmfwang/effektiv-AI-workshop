@@ -44,7 +44,7 @@ tilfellet satt til `1×`.
 | GPT-6 Luna | Lightweight | $0.10 | $0.50 | **1×** |
 | GPT-5 mini | Lightweight | $0.25 | $2.00 | 3,3× |
 | Claude Haiku 4.5 | Versatile | $1.00 | $5.00 | 10× |
-| Claude Sonnet 5 | Versatile | $2.00 | $10.00 | 20× |
+| Claude Sonnet 5 / 5.5 | Versatile | $2.00 | $10.00 | 20× |
 | GPT-6.1 Sol | Powerful | $2.00 | $10.00 | 20× |
 | GPT-5.6 Terra | Versatile | $2.00 | $12.00 | 22× |
 | Claude Sonnet 4 / 4.6 | Versatile | $3.00 | $15.00 | 30× |

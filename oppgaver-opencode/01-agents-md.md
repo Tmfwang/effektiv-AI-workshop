@@ -32,3 +32,8 @@ Etter en intern spøk la teammedlemmet ditt, Kliff Arne, inn litt tvungen folkeo
 
 
 [Se løsningsforslag for oppgave 1B](./losningsforslag/01-agents-md.md)
+
+> [!TIP]
+> OpenCode støtter automatisk innlasting av _mappespesifikke_ `AGENTS.md`-filer. Du kan for eksempel ha én fil i `/backend`-mappen og en annen i `/frontend`-mappen. Instruksjonene lastes inn når agenten jobber i den aktuelle mappen eller en undermappe. Slik kan du gi agenten relevante regler der de trengs, samtidig som du holder resten av konteksten kort.
+>
+> Dette kan også være nyttig i et mono-repo, hvor ulike mapper kan ha ulike regler og forutsetninger.
