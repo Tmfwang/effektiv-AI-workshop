@@ -32,3 +32,11 @@ Etter en intern spøk la teammedlemmet ditt, Kliff Arne, inn litt tvungen folkeo
 
 
 [Se løsningsforslag for oppgave 1B](./losningsforslag/01-claude-md.md)
+
+> [!TIP]
+> Claude Code støtter automatisk innlasting av _mappespesifikke_ `CLAUDE.md`-filer. Du kan for eksempel ha én fil i `/backend`-mappen og en annen i `/frontend`-mappen. Instruksjonene i undermappene lastes inn når Claude Code leser filer der, slik at relevante regler følger arbeidet uten å fylle konteksten unødvendig.
+>
+> Dette kan også være nyttig i et monorepo, der ulike mapper kan ha ulike regler og forutsetninger.
+
+> [!TIP]
+> En ny versjon av Claude Code ble lanserte 18. september 2026, hvor også den nå støtter lesing av `AGENTS.md`-filer _dersom_ en `CLAUDE.md`-fil ikke finnes. De fleste harnesser støtter derfor nå `AGENTS.md`-filer.
